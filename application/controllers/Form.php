@@ -11,6 +11,7 @@ class Form extends CI_Controller
 	    $this->load->model('Model_insert');
 	    $this->load->library('form_validation');
 	    $this->load->library('set_views');
+	    $this->load->model('Model_others');
 
 	    //check if user is logged on
 	    $this->load->library('set_custom_session');
@@ -28,6 +29,26 @@ class Form extends CI_Controller
                             'field' => 'family_name',
                             'label' => 'Family Name',
                             'rules' => 'trim|required|xss_clean'
+                    ),
+                    array(
+                            'field' => 'Address_Province',
+                            'label' => 'Province',
+                            'rules' => 'trim|required|xss_clean'
+                    ),
+                        array(
+                            'field' => 'Address_City',
+                            'label' => 'City/Municipality',
+                            'rules' => 'trim|required|xss_clean'
+                    ),
+                         array(
+                            'field' => 'Address_Barangay',
+                            'label' => 'Barangay',
+                            'rules' => 'trim|required|xss_clean'
+                    ),
+                         array(
+                            'field' => 'comp_add',
+                            'label' => 'Complete Address(House Number, Building, and Street Name)',
+                            'rules' => 'required|xss_clean'
                     )
             ); 
 		$this->form_validation->set_rules($config);
@@ -36,7 +57,11 @@ class Form extends CI_Controller
 		{
 
 			$array_insert = array(
-				'name' => $this->input->post('family_name') 
+				'name' 			=> $this->input->post('family_name'),
+				'provCode'		=> $this->input->post('Address_Province'),
+				'citymunCode'	=> $this->input->post('Address_City'),
+				'brgyCode'		=> $this->input->post('Address_Barangay'),
+				'comp_address'	=> $this->input->post('comp_add'), 
 			);
 
 			//first var = array to insert in the table, var 2 = table name
@@ -55,7 +80,13 @@ class Form extends CI_Controller
 			}//end session checker
 			else
 			{
-				$this->load->view($this->set_views->form_family());
+				//to escape error in form validation set_value
+				$data['family_name'] = '';
+				$data['comp_add'] = '';
+
+				$data['province_list'] = $this->Model_others->address_province('');
+				$this->load->view($this->set_views->form_family(), $data);
+				$this->load->view($this->set_views->ajax());
 			}
 
 
@@ -71,35 +102,20 @@ class Form extends CI_Controller
                             'label' => 'First Name',
                             'rules' => 'trim|required|xss_clean'
                     ),
-                     array(
+                    array(
                             'field' => 'gender',
                             'label' => 'Gender',
                             'rules' => 'trim|required|xss_clean'
                     ),
-                      array(
+                    array(
                             'field' => 'birth_date',
                             'label' => 'Birth Date',
                             'rules' => 'trim|required|xss_clean'
                     ),
-                       array(
-                            'field' => 'province',
-                            'label' => 'Province',
+                    array(
+                            'field' => 'date_registered',
+                            'label' => 'Date Registered',
                             'rules' => 'trim|required|xss_clean'
-                    ),
-                        array(
-                            'field' => 'citymun',
-                            'label' => 'City/Municipality',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                         array(
-                            'field' => 'brgy',
-                            'label' => 'Barangay',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                         array(
-                            'field' => 'comp_add',
-                            'label' => 'Complete Address(House Number, Building, and Street Name)',
-                            'rules' => 'required|xss_clean'
                     )
             ); 
 		$this->form_validation->set_rules($config);
@@ -113,25 +129,56 @@ class Form extends CI_Controller
 				'family_name_id'	=> $family_id,
 				'gender'			=> $this->input->post('gender'),
 				'birth_date'		=> $this->input->post('birth_date'),
-				'refprovince_id'	=> $this->input->post('province'),
-				'refcitymun_id'		=> $this->input->post('citymun'),
-				'refbrgy_id'		=> $this->input->post('brgy'),
-				'comp_address'		=> $this->input->post('comp_add'),
-				'date_registered'	=> 'DATE(NOW())'
+				'date_registered'	=> $this->input->post('date_registered')
 
 			);
 
 			//first var = array to insert in the table, var 2 = table name
-			$family_id = $this->Model_insert->insert_info( $array_insert, 'participants' );
+			$this->Model_insert->insert_info( $array_insert, 'participants' );
+
+			//set session for form success
+			$array_message = array(
+				'msg'			=> 'Add family member success',
+				'msg2'			=> 'Add another family member',
+				're_link'		=> '/Form/participant_form',
+				'msg3' 			=> 'Create new Family',
+				're_link2'		=> '/Form/unset_family'
+			);
+			$this->session->set_userdata('success_message' ,$array_message);
+
+			redirect('/Form/form_success');
 
 
 		}
 		else
 		{
+			//unset session from success_message
+			if ($this->session->has_userdata('success_message')) 
+			{
+				# code...
+				$this->session->unset_userdata('success_message');
+
+			}
+
 			if ( $this->session->has_userdata('family') ) 
 			{
 				# code...
-				$this->load->view($this->set_views->form_participant());
+
+				//form dropdown for gender
+				$options = array(
+					'Male'		=> 'Male',
+					'Female'	=> 'Female'
+				);
+				
+				$data['gender'] =  form_dropdown('gender', $options, '');
+
+				//to escape error in form validation set_value
+				$data['fname'] = '';
+				$data['birth_date'] = '';
+				$data['date_registered'] = '';
+
+
+				$this->load->view($this->set_views->form_participant(), $data);
 				
 			}//end session checker
 			else
@@ -141,6 +188,33 @@ class Form extends CI_Controller
 		}
 
 
+    }//enf function participant
+
+    // prevents form resubmission on refresh
+    public function form_success()
+    {
+    	if ($this->session->has_userdata('success_message')) 
+    	{
+    		# code...
+    		$data = array(
+    			'msg'		=> $this->session->userdata('success_message')['msg'],
+    			'msg2'		=> $this->session->userdata('success_message')['msg2'],
+    			're_link'	=> $this->session->userdata('success_message')['re_link'],
+    			'msg3'		=> $this->session->userdata('success_message')['msg3'],
+    			're_link2'	=> $this->session->userdata('success_message')['re_link2']  
+    		);
+    		$this->load->view($this->set_views->form_success(), $data);
+    	}
+    	else
+    	{
+    		redirect('/Form');
+    	}
     }
 
-}
+    public function unset_family()
+    {
+    	$this->session->unset_userdata('family');
+    	redirect('/Form');
+    }
+
+}//end class

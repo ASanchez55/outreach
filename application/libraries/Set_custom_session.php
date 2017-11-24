@@ -24,7 +24,7 @@ class Set_custom_session
 			
 
 			$data = array( 
-				'username' => $this->CI->session->userdata('logged_in')['username'],
+				'id' => $this->CI->session->userdata('logged_in')['id'],
 				'admin_fname' => $this->CI->session->userdata('logged_in')['fname'],
 				'admin_lname' => $this->CI->session->userdata('logged_in')['lname']
 			);

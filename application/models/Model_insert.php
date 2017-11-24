@@ -12,6 +12,12 @@ class Model_insert extends CI_Model {
 			$this->db->insert($table_name, $array_insert); 
 			// get the id of latest insert
 			$primary_no = $this->db->insert_id();
+
+			//reset query builder
+	        $this->db->reset_query();
+
 			return $primary_no;
 		}
+
+
 }

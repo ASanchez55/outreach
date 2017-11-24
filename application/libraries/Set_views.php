@@ -16,12 +16,27 @@ class Set_views
 
 	public function form_family()
 	{
-		return 'form_family';
+		return 'test/form_family';
 	}
 
 	public function form_participant()
 	{
-		return 'form_participant';
+		return 'test/form_participant';
+	}
+
+	public function form_success()
+	{
+		return 'test/success';
+	}
+
+	public function ajax()
+	{
+		return 'js/ajax';
+	}
+
+	public function login()
+	{
+		return 'test/login';
 	}
 
 
