@@ -39,5 +39,10 @@ class Set_views
 		return 'user_login';
 	}
 
+	public function search_family()
+	{
+		return 'test/family_search';
+	}
+
 
 }
