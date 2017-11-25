@@ -205,7 +205,7 @@ class Form extends MY_Controller
 			}//end session checker
 			else
 			{
-				redirect('/search_family');
+				redirect('/Form/search_family');
 			}
 		}
 
@@ -235,6 +235,10 @@ class Form extends MY_Controller
     		{
     			# code...
     			$this->data['output'] = $this->Model_return->return_event($this->session->userdata('success_message')['id']);
+    		}
+    		else
+    		{
+    			$this->data['output'] = NULL;
     		}
     		$this->render($this->set_views->form_success());
     	}
@@ -295,7 +299,7 @@ class Form extends MY_Controller
     		}
     		else
     		{
-    			redirect('/search_family');
+    			redirect('/Form/search_family');
     		}
     	}
     	else
@@ -355,6 +359,98 @@ class Form extends MY_Controller
 			
 
 		}
+    }
+
+    public function register_family_event($data = '')
+    {
+    	if ($data) 
+    	{
+    		# code...
+    		$checker = $this->Model_return->return_family($data);
+
+    		if ($checker != FALSE) 
+    		{
+    			# code...
+    			
+    			$config = array(
+		                 array(
+		                    'field' => 'date_registered',
+		                    'label' => 'Date Registered',
+		                    'rules' => 'required|xss_clean'
+		                )
+		        ); 
+				$this->form_validation->set_rules($config);
+
+				if ( $this->form_validation->run() == TRUE )
+				{
+					$array_insert = array(
+						'event_id' 			=> $this->input->post('event'),
+						'date_registered'	=> $this->input->post('date_registered'),
+						'family_id'			=> $data 
+					);
+
+					//check if family is already registered
+					$redundancy_check = $this->Model_return->event_attendance_checker($array_insert);
+					if ($redundancy_check == FALSE) 
+					{
+						# code...
+						//first var = array to insert in the table, var 2 = table name
+						$this->Model_insert->insert_info( $array_insert, 'event_attendance' );
+						
+						//set session for form success
+						$array_message = array(
+							'msg'		=> 'Registered '.$checker.' Family to event success',
+							'msg2'		=> 'Register another family to event',
+							're_link'	=> '/Form/search_family',
+							'msg3' 		=> 'Home',
+							're_link2'	=> '/Form',
+							'type'		=> '',
+							'id'		=> ''	
+						);
+					}
+					else
+					{
+						//set session for form success
+						$array_message = array(
+							'msg'		=> $checker.' Family is already registered to the selected event',
+							'msg2'		=> 'Register another family to event',
+							're_link'	=> '/Form/search_family',
+							'msg3' 		=> 'Home',
+							're_link2'	=> '/Form',
+							'type'		=> '',
+							'id'		=> ''	
+						);
+					}
+
+					
+					$this->session->set_userdata('success_message' ,$array_message);
+
+					redirect('/Form/form_success');
+
+				}// end form validation checker
+				else
+				{
+					$this->data['family_name'] = $checker;
+					$this->data['date_registered'] = '';
+					$this->data['event_list'] = $this->Model_return->event_list();
+
+
+					//$this->load->view($this->set_views->ajax());
+
+					$this->render($this->set_views->form_register_family_event());
+				}
+
+    			
+    		}
+    		else
+    		{
+    			redirect('/search_family');
+    		}
+    	}
+    	else
+    	{
+    		redirect('/Form');
+    	}
     }
 
 }//end class

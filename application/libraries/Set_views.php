@@ -54,5 +54,10 @@ class Set_views
 		return 'family_search';
 	}
 
+	public function form_register_family_event()
+	{
+		return 'register_family_event';
+	}
+
 
 }

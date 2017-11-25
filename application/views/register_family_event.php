@@ -5,7 +5,7 @@
       <div class="form-group">
         <label class="col-md-3 control-label"></label>
         <div class="col-md-6">
-          <h3>Create Family</h3>
+          <h3>Register Family to Event</h3>
           </hr>
         </div>
       </div>
@@ -27,17 +27,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="familyName">Family Name</label>
         <div class="col-md-4">
-          <input id="familyName" name="family_name" type="text" placeholder="ex. Dela Cruz" class="form-control input-md" value="<?php echo set_value('family_name', $this->data['family_name'] ); ?>">
-          <span class="help-block">Last Name of the Family</span>
-        </div>
-      </div>
-
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="familyName">Address</label>
-        <div class="col-md-4">
-          <input id="familyName" name="comp_add" type="text" placeholder="ex. MUNTINDILAW" class="form-control input-md" value="<?php echo set_value('comp_add', $this->data['comp_add'] ); ?>" >
-          <span class="help-block"></span>
+          <span class="help-block"><?php echo $family_name; ?></span>
         </div>
       </div>
 
@@ -62,7 +52,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="_submitButton"></label>
         <div class="col-md-4">
-          <button id="_submitButton" name="_submitButton" class="btn btn-primary">Create Family</button>
+          <button id="_submitButton" name="_submitButton" class="btn btn-primary">Register Family to Event</button>
         </div>
       </div>
 
