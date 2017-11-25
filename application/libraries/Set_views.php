@@ -14,6 +14,11 @@ class Set_views
 		return 'layout/footer';
 	}
 
+	public function admin_home()
+	{
+		return 'admin/home';
+	}
+
 	public function form_family()
 	{
 		return 'create_family';

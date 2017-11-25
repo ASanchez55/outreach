@@ -255,11 +255,11 @@ class Form extends MY_Controller
     	
     	if ( $this->input->get('search_value') ) 
         {
-        	$data = array(
+        	$data = array_merge($this->data, array(
         		'search_value'	=> $this->input->get('search_value'),
         		'table'			=> 'family AS F',
         		'type'			=> 'family' 
-        	);
+        	));
 
         	$this->data['output'] = $this->Model_return->search($data);
 
@@ -268,9 +268,10 @@ class Form extends MY_Controller
         }
         else
         {
-        	$this->data = array(
+
+        	$this->data = array_merge($this->data, array(
         		'output' => '' 
-        	);
+        	));
         	//$this->load->view($this->set_views->search_family(), $data);
         	$this->render($this->set_views->search_family());
         }
