@@ -58,7 +58,9 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <?php if ($this->session->has_userdata('logged_in')) : ?>
               <li><a href="<?php echo site_url('admin/logout'); ?>">Sign-out</a></li>
+          <?php endif; ?>
         </ul>
       </div>
       <!--/.nav-collapse -->

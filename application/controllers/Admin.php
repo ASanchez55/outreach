@@ -48,7 +48,7 @@ class Admin extends CI_Controller
         if ( $this->form_validation->run() == FALSE ) 
         {
             # code...
-            if ($this->session->has_userdata('logged_in')  )
+            if ($this->session->has_userdata('logged_in'))
             {
                 # code...
             
@@ -118,7 +118,6 @@ class Admin extends CI_Controller
 
     private function admin_header()
     {
-        
         $this->load->view( $this->admin_header, $this->admin_data);
     }
 
