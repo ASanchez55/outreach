@@ -5,6 +5,7 @@ class Admin extends CI_Controller
 {
     private $admin_header;
     private $admin_footer;
+    private $admin_data;
 
 	public function __construct()
     {
@@ -47,7 +48,7 @@ class Admin extends CI_Controller
         if ( $this->form_validation->run() == FALSE ) 
         {
             # code...
-            if ($this->session->has_userdata('logged_in')  )
+            if ($this->session->has_userdata('logged_in'))
             {
                 # code...
             
@@ -64,7 +65,9 @@ class Admin extends CI_Controller
             else
             {
                 $data = array('error_msg' => '');
+                $this->admin_header();
                 $this->load->view($this->set_views->login(), $data);
+                $this->admin_footer();
             }
         }//form validation checker
         else
