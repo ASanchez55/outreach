@@ -36,19 +36,28 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="familyName">Address</label>
         <div class="col-md-4">
-          <input id="familyName" name="comp_add" type="text" placeholder="ex. B1 L1, Street 1" class="form-control input-md" value="<?php echo set_value('comp_add', $this->data['comp_add'] ); ?>" >
-          <span class="help-block">House Number, Building, and Street Name</span>
+          <input id="familyName" name="comp_add" type="text" placeholder="ex. MUNTINDILAW" class="form-control input-md" value="<?php echo set_value('comp_add', $this->data['comp_add'] ); ?>" >
+          <span class="help-block"></span>
         </div>
       </div>
 
-       <!-- Registration Date
+      <!-- Registration Date-->
       <div class="form-group">
         <label class="col-md-4 control-label" for="_submitButton">Registration Date</label>
         <div class="col-md-4">
           <input type="date" name="date_registered" value="<?php echo set_value('date_registered', $date_registered ); ?>">
         </div>
       </div>
-      -->
+
+      <!-- Dropdown-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="familyName">Address</label>
+        <div class="col-md-4">
+          <?php echo $event_list; ?>
+          <span class="help-block">House Number, Building, and Street Name</span>
+        </div>
+      </div>
+      
 
       <!-- Button -->
       <div class="form-group">

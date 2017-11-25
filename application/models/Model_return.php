@@ -50,6 +50,8 @@ class Model_return extends CI_Model {
 
 	}
 
+
+
 	public function return_participants($data)
 	{
 		$this->db->select('P.fname, F.name AS lname, P.head_family');
@@ -100,6 +102,71 @@ class Model_return extends CI_Model {
         	return FALSE;
         }
 	}// end return participants
+
+	public function return_event($data)
+	{
+		$this->db->select('name, date');
+    	$this->db->from('event');
+
+    	$query = $this->db->get();
+
+        if ($query->num_rows() >= 1 ) 
+        {
+        	//reset query builder
+            $this->db->reset_query();
+
+            $output = $this->table_start;
+            $output .= $this->row_start;
+            $output .= $this->col_start.'Event Name'.$this->col_end;
+            $output .= $this->col_start.'Event Date'.$this->col_end;
+            $output .= $this->row_end;
+
+            foreach ( $query->result() as $row )
+            {
+
+            	$output .= $this->row_start;
+            	$output .= $this->col_start.$row->name.$this->col_end;
+            	$output .= $this->col_start.$row->date.$this->col_end;
+            	$output .= $this->row_end;
+            }
+
+            $output .= $this->table_end;
+            return $output;
+
+        }
+        else
+        {
+        	return FALSE;
+        }
+	}
+
+	public function event_list()
+	{
+		$this->db->select('id, name');
+    	$this->db->from('event');
+    	$this->db->order_by('id', 'DESC');
+    	
+    	$query = $this->db->get();
+
+        if ($query->num_rows() >= 1 ) 
+        {
+        	//reset query builder
+            $this->db->reset_query();
+
+            foreach ( $query->result() as $row )
+            {
+            	$options[$row->id] = $row->name;
+            }
+
+            $js = 'class="form-control" id="sel1"';
+			return form_dropdown('event', $options, '', $js);
+
+        }
+        else
+        {
+        	return FALSE;
+        }
+	}
 
 
 	public function search($data)
@@ -178,6 +245,8 @@ class Model_return extends CI_Model {
 			return $output;
 		}
     }//end search
+
+
 
 
 }// end class

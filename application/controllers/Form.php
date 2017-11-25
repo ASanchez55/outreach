@@ -36,6 +36,11 @@ class Form extends MY_Controller
                     'field' => 'comp_add',
                     'label' => 'Address',
                     'rules' => 'required|xss_clean'
+                ),
+                 array(
+                    'field' => 'date_registered',
+                    'label' => 'Date Registered',
+                    'rules' => 'required|xss_clean'
                 )
         ); 
 		$this->form_validation->set_rules($config);
@@ -53,6 +58,15 @@ class Form extends MY_Controller
 
 			$this->session->set_userdata('family' ,$family_id);
 
+			$array_insert = array(
+				'event_id' 			=> $this->input->post('event'),
+				'date_registered'	=> $this->input->post('date_registered'),
+				'family_id'			=> $family_id 
+			);
+
+			//first var = array to insert in the table, var 2 = table name
+			$this->Model_insert->insert_info( $array_insert, 'event_attendance' );
+
 			redirect('/Form/participant_form');
 		}
 		else
@@ -66,6 +80,8 @@ class Form extends MY_Controller
 			{
 				$this->data['family_name'] = '';
 				$this->data['comp_add'] = '';
+				$this->data['date_registered'] = '';
+				$this->data['event_list'] = $this->Model_return->event_list();
 
 
 				//$this->load->view($this->set_views->ajax());
@@ -128,7 +144,8 @@ class Form extends MY_Controller
 				're_link'	=> '/Form/participant_form',
 				'msg3' 		=> 'Create new Family',
 				're_link2'	=> '/Form/unset_family',
-				'type'		=> 'participants'	
+				'type'		=> 'participants',
+				'id'		=> $family_id	
 			);
 			$this->session->set_userdata('success_message' ,$array_message);
 
@@ -188,7 +205,7 @@ class Form extends MY_Controller
 			}//end session checker
 			else
 			{
-				redirect('/Form');
+				redirect('/search_family');
 			}
 		}
 
@@ -212,7 +229,12 @@ class Form extends MY_Controller
     		if ($this->session->userdata('success_message')['type'] == 'participants') 
     		{
     			# code...
-    			$this->data['output'] = $this->Model_return->return_participants($this->session->userdata('family'));
+    			$this->data['output'] = $this->Model_return->return_participants($this->session->userdata('success_message')['id']);
+    		}
+    		elseif ($this->session->userdata('success_message')['type'] == 'event') 
+    		{
+    			# code...
+    			$this->data['output'] = $this->Model_return->return_event($this->session->userdata('success_message')['id']);
     		}
     		$this->render($this->set_views->form_success());
     	}
@@ -239,14 +261,14 @@ class Form extends MY_Controller
         		'type'			=> 'family' 
         	);
 
-        	$this->$data['output'] = $this->Model_return->search($data);
+        	$this->data['output'] = $this->Model_return->search($data);
 
         	//$this->load->view($this->set_views->search_family(), $data);
         	$this->render($this->set_views->search_family());
         }
         else
         {
-        	$this->$data = array(
+        	$this->data = array(
         		'output' => '' 
         	);
         	//$this->load->view($this->set_views->search_family(), $data);
@@ -279,6 +301,59 @@ class Form extends MY_Controller
     	{
     		redirect('/Form');
     	}
+    }
+
+    public function form_event()
+    {
+    	$config = array(
+                array(
+                    'field' => 'event_name',
+                    'label' => 'Event Name',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'date',
+                    'label' => 'Event Date',
+                    'rules' => 'required|xss_clean'
+                )
+        ); 
+		$this->form_validation->set_rules($config);
+
+		if ( $this->form_validation->run() == TRUE )
+		{
+
+			$array_insert = array(
+				'name' 	=> $this->input->post('event_name'),
+				'date'	=> $this->input->post('date'), 
+			);
+
+			//first var = array to insert in the table, var 2 = table name
+			$event_id = $this->Model_insert->insert_info( $array_insert, 'event' );
+
+			$array_message = array(
+				'msg'		=> 'Add Event success',
+				'msg2'		=> 'Add another Event',
+				're_link'	=> '/Form/form_event',
+				'msg3' 		=> 'Home',
+				're_link2'	=> '/Form',
+				'type'		=> 'event',
+				'id'		=> $event_id	
+			);
+			$this->session->set_userdata('success_message' ,$array_message);
+
+			redirect('/Form/form_success');
+		}
+		else
+		{
+			
+			$this->data['event_name'] = '';
+			$this->data['date'] = '';
+
+			$this->render($this->set_views->form_event());
+
+			
+
+		}
     }
 
 }//end class

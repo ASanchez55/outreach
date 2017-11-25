@@ -29,6 +29,11 @@ class Set_views
 		return 'form_success';
 	}
 
+	public function form_event()
+	{
+		return 'test/form_event';
+	}
+
 	public function ajax()
 	{
 		return 'js/ajax';
