@@ -1,7 +1,62 @@
+<div class="row center-block">
+      <div class ="row">
+        <div class="col-md-10 col-md-offset-1">
+          <form>
+            <div class="form-group">
+              <label class="control-label">Search Last Name:</label>
+              <input class="form-control" type="text" name="search_value" />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+          </form>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Family Name</th>
+                    <th>First Name</th>
+                    <th>Head of Family</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr></tr>
+                  <tr>
+                    <td>
+                      1
+                    </td>
+                    <td>
+                      Luffy
+                    </td>
+                    <td>
+                      Monkey
+                    </td>
+                    <td>
+                      Y
+                    </td>
+                    <td>
+                      <div class="" role="group">
+                        <button class="btn btn-primary" type="button">Add Family Member</button>
+                        <button class="btn btn-primary" type="button">Participate Family</button>
+                      </div>
+                    </td>
+                  </tr> -->
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
 <div>
 
-</div>
+<?php echo $this->data['output']; ?> </p>
 
+<!-- 
 <div class="container pagecont">
   <div class="row"> 	
     
@@ -29,4 +84,4 @@
                                 
      
 </div>
-</div>
+</div> -->

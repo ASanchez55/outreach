@@ -53,12 +53,12 @@ class Admin extends MY_Controller
 
                 //$this->admin_footer();
                 //$this->load->view('view_admin_footer');
-                $this->middle = "user_login";
-                $this->render("user_login");
+
+                $this->render($this->set_views->admin_home());
             }//end session user logged_in true
             else
             {
-                $this->render('user_login');
+                $this->render($this->set_views->login());
             }
         }//form validation checker
         else
