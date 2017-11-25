@@ -2,34 +2,40 @@
   <form class="form-horizontal" method="post" action="">
     <fieldset>
       <!-- Form Name -->
-      <legend>Success</legend>
+      <div class="form-group">
+      <label class="col-md-3 control-label"></label>
+      <div class="col-md-6">
+        <h3>Add Family Member</h3>
+        <hr />
+      </div>
+    </div>
       
 
       <!-- Message-->
       <div class="form-group">
         <div class="col-md-4">
-         <h3><?php echo $msg;?></h3>
+         <h3><?php echo $this->data['msg'];?></h3>
         </div>
       </div>
 
       <!-- Output-->
       <div class="form-group">
         <div class="col-md-4">
-         <?php echo $output;?>
+         <?php echo $this->data['output'];?>
         </div>
       </div>
 
       <!-- Link-->
       <div class="form-group">
         <div class="col-md-4">
-         <?php echo anchor($re_link, $msg2); ?>
+         <?php echo anchor($this->data['re_link'], $this->data['msg2']); ?>
         </div>
       </div>
 
       <!-- Link-->
       <div class="form-group">
         <div class="col-md-4">
-        <?php echo anchor($re_link2, $msg3); ?>
+        <?php echo anchor($this->data['re_link2'], $this->data['msg3']); ?>
         </div>
       </div>
 

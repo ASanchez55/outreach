@@ -196,25 +196,20 @@ class Form extends MY_Controller
     	if ($this->session->has_userdata('success_message')) 
     	{
     		# code...
-    		$this->load->view($this->set_views->admin_header());
-
-    		$data = array(
+    		$this->data = array_merge($this->data, array(
     			'msg'		=> $this->session->userdata('success_message')['msg'],
     			'msg2'		=> $this->session->userdata('success_message')['msg2'],
     			're_link'	=> $this->session->userdata('success_message')['re_link'],
     			'msg3'		=> $this->session->userdata('success_message')['msg3'],
     			're_link2'	=> $this->session->userdata('success_message')['re_link2']  
-    		);
+			));
 
     		if ($this->session->userdata('success_message')['type'] == 'participants') 
     		{
     			# code...
-    			$data['output'] = $this->Model_return->return_participants($this->session->userdata('family'));
+    			$this->data['output'] = $this->Model_return->return_participants($this->session->userdata('family'));
     		}
-    		$this->load->view($this->set_views->form_success(), $data);
-
-    		//footer
-			$this->load->view($this->set_views->admin_footer());
+    		$this->render($this->set_views->form_success());
     	}
     	else
     	{
