@@ -21,7 +21,7 @@
         <form action="" method="get">
         <p> <input type="text" name="search_value"/> </p>
         <p> <input type="submit"/> </p> 
-        <p> <?php echo $output; ?> </p>
+        <p> <?php echo $this->data['output']; ?> </p>
         </form>
       
      </div>

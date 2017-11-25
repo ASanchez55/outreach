@@ -19,7 +19,7 @@
                   <li><a href="<?php echo site_url('form/index') ?>">Register Family</a></li>
                   <li><a href="<?php echo site_url('form/participant_form') ?>">Add Family Member</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#">Search Family</a></li>
+                  <li><a href="<?php echo site_url('form/search_family') ?>">Search Family</a></li>
                 </ul>
           </li>
           <li class="dropdown">
