@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Form extends CI_Controller 
+class Form extends MY_Controller 
 {
 
 	public function __construct()
@@ -63,18 +63,10 @@ class Form extends CI_Controller
 			}//end session checker
 			else
 			{
-				//header
-				$this->load->view($this->set_views->admin_header());
-				//to escape error in form validation set_value
-				$data['family_name'] = '';
-				$data['comp_add'] = '';
+				$this->data['family_name'] = '';
+				$this->data['comp_add'] = '';
 
-				//$data['province_list'] = $this->Model_others->address_province('');
-				$this->load->view($this->set_views->form_family(), $data);
-				//footer
-				$this->load->view($this->set_views->admin_footer());
-
-				$this->load->view($this->set_views->ajax());
+				$this->render($this->set_views->form_family());
 			}
 
 
@@ -159,7 +151,7 @@ class Form extends CI_Controller
 					'Female'	=> 'Female'
 				);
 				$js = 'class="form-control"';
-				$data['gender'] =  form_dropdown('gender', $options, '',$js);
+				$this->data['gender'] =  form_dropdown('gender', $options, '',$js);
 
 				//radio button for head of family
 				$options = array(
@@ -168,7 +160,7 @@ class Form extends CI_Controller
 				        'checked'       => FALSE
 				);
 
-				$data['head_family1'] = form_radio($options);
+				$this->data['head_family1'] = form_radio($options);
 
 				$options = array(
 				        'name'          => 'head_family',
@@ -176,22 +168,17 @@ class Form extends CI_Controller
 				        'checked'       => TRUE
 				);
 
-				$data['head_family2'] = form_radio($options);
+				$this->data['head_family2'] = form_radio($options);
 
 				//to escape error in form validation set_value
-				$data['fname'] = '';
-				$data['birth_date'] = '';
+				$this->data['fname'] = '';
+				$this->data['birth_date'] = '';
 				
 
 				//show family name
-				$data['family_name'] = $this->Model_return->return_family($this->session->userdata('family'));
-				//header
-				$this->load->view($this->set_views->admin_header());
+				$this->data['family_name'] = $this->Model_return->return_family($this->session->userdata('family'));
 
-				$this->load->view($this->set_views->form_participant(), $data);
-
-				//footer
-				$this->load->view($this->set_views->admin_footer());
+				$this->render($this->set_views->form_participant());
 				
 			}//end session checker
 			else
