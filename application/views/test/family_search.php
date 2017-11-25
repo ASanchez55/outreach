@@ -4,14 +4,14 @@
 
 <div class="container pagecont">
   <div class="row"> 	
-    <h3>/Title</h3>
+    
     <br>
     <br>
     
       <div class="card text-center" style="width: 100%;">
      <div class="card-body"> <br>
       <div class="pull-right">
-      sample 1
+     
       </div>
                                          
    

@@ -230,8 +230,7 @@ class Form extends MY_Controller
 
     public function search_family()
     {
-    	//header
-		//$this->load->view($this->set_views->admin_header());
+    	
     	if ( $this->input->get('search_value') ) 
         {
         	$data = array(
@@ -240,16 +239,18 @@ class Form extends MY_Controller
         		'type'			=> 'family' 
         	);
 
-        	$data['output'] = $this->Model_return->search($data);
+        	$this->$data['output'] = $this->Model_return->search($data);
 
-        	$this->load->view($this->set_views->search_family(), $data);
+        	//$this->load->view($this->set_views->search_family(), $data);
+        	$this->render($this->set_views->search_family());
         }
         else
         {
-        	$data = array(
+        	$this->$data = array(
         		'output' => '' 
         	);
-        	$this->load->view($this->set_views->search_family(), $data);
+        	//$this->load->view($this->set_views->search_family(), $data);
+        	$this->render($this->set_views->search_family());
         }
 
         //footer
