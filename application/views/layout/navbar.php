@@ -27,7 +27,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="#">Participate</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#">Create Event</a></li>
+                  <li><a href="<?php echo site_url('form/form_event') ?>">Create Event</a></li>
                 </ul>
           </li>
           <li>

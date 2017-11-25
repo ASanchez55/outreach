@@ -36,7 +36,7 @@ class Set_views
 
 	public function form_event()
 	{
-		return 'test/form_event';
+		return 'create_event';
 	}
 
 	public function ajax()
@@ -51,7 +51,7 @@ class Set_views
 
 	public function search_family()
 	{
-		return 'test/family_search';
+		return 'family_search';
 	}
 
 

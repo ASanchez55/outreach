@@ -11,6 +11,7 @@
             </div>
           </form>
       </div>
+      
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="table-responsive">
@@ -51,10 +52,34 @@
             </div>
         </div>
       </div>
+
+
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Family Name</th>
+                    <th>First Name</th>
+                    <th>Add Family Member</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <?php echo $this->data['output']; ?>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+
+
     </div>
 <div>
 
-<?php echo $this->data['output']; ?> </p>
+
 
 <!-- 
 <div class="container pagecont">

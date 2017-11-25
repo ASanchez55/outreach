@@ -8,6 +8,10 @@ class Model_return extends CI_Model {
 	private $col_start;
 	private $col_end;
 	private $page_limit;
+	private $thead_start;
+	private $thead_end;
+	private $tbody_start;
+	private $tbody_end;
 
     public function __construct()
     {
@@ -17,9 +21,13 @@ class Model_return extends CI_Model {
         $this->table_end = '</table>';
         $this->row_start = '<tr>';
         $this->row_end = '</tr>';
-        $this->col_start = '<td>';
-        $this->col_end = '</td>';
-        $this->page_limit = 10;
+        $this->col_start = '<th>';
+        $this->col_end = '</th>';
+        $this->thead_start = '<thead>';
+        $this->thead_end = '</thead>';
+        $this->tbody_start = '<tbody>';
+        $this->tbody_end = '</tbody>';
+        $this->page_limit = 50;
     }
 
 	public function return_family($data)
@@ -66,12 +74,15 @@ class Model_return extends CI_Model {
         	//reset query builder
             $this->db->reset_query();
 
-            $output = $this->table_start;
+            //$output = $this->table_start;
+            $output = $this->thead_start;
             $output .= $this->row_start;
             $output .= $this->col_start.'First Name'.$this->col_end;
             $output .= $this->col_start.'Last Name'.$this->col_end;
             $output .= $this->col_start.'Head of family'.$this->col_end;
             $output .= $this->row_end;
+            $output .= $this->thead_end;
+            $output .= $this->tbody_start;
 
             foreach ( $query->result() as $row )
             {
@@ -93,7 +104,8 @@ class Model_return extends CI_Model {
             	$output .= $this->row_end;
             }
 
-            $output .= $this->table_end;
+            //$output .= $this->table_end;
+            $output .= $this->tbody_end;
             return $output;
 
         }
@@ -115,11 +127,14 @@ class Model_return extends CI_Model {
         	//reset query builder
             $this->db->reset_query();
 
-            $output = $this->table_start;
+            //$output = $this->table_start;
+            $output = $this->thead_start;
             $output .= $this->row_start;
             $output .= $this->col_start.'Event Name'.$this->col_end;
             $output .= $this->col_start.'Event Date'.$this->col_end;
             $output .= $this->row_end;
+            $output .= $this->thead_end;
+            $output .= $this->tbody_start;
 
             foreach ( $query->result() as $row )
             {
@@ -130,7 +145,8 @@ class Model_return extends CI_Model {
             	$output .= $this->row_end;
             }
 
-            $output .= $this->table_end;
+            //$output .= $this->table_end;
+            $output .= $this->tbody_end;
             return $output;
 
         }
@@ -189,6 +205,7 @@ class Model_return extends CI_Model {
     		*/
     		//$this->db->where($this->db->or_like( $array_like ));
 
+    		/*
     		$output = $this->table_start;
     		$output .= $this->row_start;
     		$output .= $this->col_start.'ID'.$this->col_end;
@@ -196,6 +213,8 @@ class Model_return extends CI_Model {
     		$output .= $this->col_start.'Head of the family'.$this->col_end;
     		$output .= $this->col_start.'Add Member'.$this->col_end;
     		$output .= $this->row_end;
+    		*/
+    		$output = '';
     		
 
     	}
@@ -232,7 +251,7 @@ class Model_return extends CI_Model {
                
 			}
 
-			$output .= $this->table_end;
+			//$output .= $this->table_end;
 			return $output;
 
 		}//end check rows
