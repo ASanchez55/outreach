@@ -6,12 +6,12 @@ class Set_views
 
 	public function admin_header()
 	{
-		return 'header';
+		return 'layout/header';
 	}
 
 	public function admin_footer()
 	{
-		return 'footer';
+		return 'layout/footer';
 	}
 
 	public function form_family()

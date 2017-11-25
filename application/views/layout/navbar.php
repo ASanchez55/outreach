@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Outreach</title>
-
-  <!-- Bootstrap -->
-  <link href="<?php echo base_url(); ?>vendor/twitter/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  <link href="<?php echo base_url(); ?>views/site.css" rel="stylesheet">
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-  <nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
@@ -35,6 +11,7 @@
         <a class="navbar-brand" href="<?php echo base_url(); ?>">Outreach</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
+        <?php if ($this->session->has_userdata('logged_in')) : ?>
         <ul class="nav navbar-nav">
           <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Family <span class="caret"></span></a>
@@ -58,13 +35,10 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <?php if ($this->session->has_userdata('logged_in')) : ?>
-              <li><a href="<?php echo site_url('admin/logout'); ?>">Sign-out</a></li>
-          <?php endif; ?>
+            <li><a href="<?php echo site_url('admin/logout'); ?>">Sign-out</a></li>
         </ul>
+        <?php endif; ?>
       </div>
       <!--/.nav-collapse -->
     </div>
   </nav>
-
-  <div class="container body-container">

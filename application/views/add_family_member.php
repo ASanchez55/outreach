@@ -4,14 +4,26 @@
     <fieldset>
 
       <!-- Form Name -->
-      <legend>Add Family Member</legend>
-
-      <!-- Error Box-->
       <div class="form-group">
-        <div class="col-md-4">
-         <?php echo validation_errors(); ?>
+      <label class="col-md-3 control-label"></label>
+      <div class="col-md-6">
+        <h3>Add Family Member</h3>
+        <hr />
+      </div>
+    </div>
+
+    <?php if (validation_errors()) : ?>
+    <!-- Error Box-->
+    <div class="form-group">
+      <label class="col-md-4 control-label"></label>
+      <div class="col-md-4">
+        <div class="alert alert-danger" role="alert">
+          <span class="sr-only">Error:</span>
+          <?php echo validation_errors(); ?>
         </div>
       </div>
+    </div>
+    <?php endif ?>
 
       <!-- Text input-->
       <div class="form-group">

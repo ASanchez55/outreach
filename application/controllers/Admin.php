@@ -1,12 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller 
-{
-    private $admin_header;
-    private $admin_footer;
-    private $admin_data;
-
+class Admin extends MY_Controller 
+{    
 	public function __construct()
     {
 	    parent::__construct();
@@ -14,12 +10,11 @@ class Admin extends CI_Controller
         $this->load->model('Model_user_verification');
 	    $this->load->model('Model_insert');
 	    $this->load->library('form_validation');
+        $this->load->library('set_custom_session');
         $this->load->library('set_views');
 
-        $this->admin_header = $this->set_views->admin_header();
-        $this->admin_footer = $this->set_views->admin_footer();
-
-        $this->load->library('set_custom_session');
+        // Set view properties
+        $this->data['error_message'] = '';
 
         if ( $this->session->has_userdata('logged_in' ) )
         {
@@ -52,22 +47,18 @@ class Admin extends CI_Controller
             {
                 # code...
             
-                //$this->load->view('view_admin_header', $this->admin_data);
-                //$this->admin_header();
+                //$this->load->view('view_admin_layo', $this->admin_data);
+                //$this->admin_layo();
                 //$this->load->view('admin/dashboard');
+
                 //$this->admin_footer();
                 //$this->load->view('view_admin_footer');
-
-                redirect('/Form');
-
-
+                $this->middle = "user_login";
+                $this->render("user_login");
             }//end session user logged_in true
             else
             {
-                $data = array('error_msg' => '');
-                $this->admin_header();
-                $this->load->view($this->set_views->login(), $data);
-                $this->admin_footer();
+                $this->render('user_login');
             }
         }//form validation checker
         else
@@ -96,34 +87,18 @@ class Admin extends CI_Controller
                 //test
                 //$this->admin_data = $this->set_custom_session->admin_session();
                 
-                $this->admin_header();
                 //$this->load->view('admin/dashboard');
-                $this->admin_footer();
-
                 redirect('/Form');
-
             }// user true
             else
             {
-                $data = array('error_msg' => 'Invalid Username or Password');
-                
-                $this->load->view($this->set_views->login(), $data);
-                
+                $this->data['error_message'] = 'Invalid Username or Password';
+                $this->render($this->set_views->login());
             }
         }//end form validation false
 
 
         
-    }
-
-    private function admin_header()
-    {
-        $this->load->view( $this->admin_header, $this->admin_data);
-    }
-
-    private function admin_footer()
-    {
-        $this->load->view($this->admin_footer);
     }
 
     public function logout()

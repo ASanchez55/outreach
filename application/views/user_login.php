@@ -1,17 +1,31 @@
-<div class="row center-block">
-  <form class="form-horizontal" method="post" action="">
+<div class="center-block">
+  <div class="col-md-12">
+    <div class="row">
+    <form class="form-horizontal" method="post" action="">
     <fieldset>
+
       <!-- Form Name -->
-      <legend>User Login</legend>
-      
-      <!-- Error Box-->
       <div class="form-group">
-        
-        <div class="col-md-4">
-         <?php echo $error_msg; ?>
-          
+        <label class="col-md-3 control-label"></label>
+        <div class="col-md-6">
+          <h2>Login</h2>
+          </hr>
         </div>
       </div>
+      
+      <!-- Error Box-->
+      <?php if ($error_message) : ?>
+      <div class="form-group">
+        <label class="col-md-4 control-label"></label>
+        <div class="col-md-4">
+          <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <?php echo $error_message; ?>
+          </div>
+        </div>
+      </div>
+      <?php endif; ?>
 
       <!-- Text input-->
       <div class="form-group">
@@ -39,5 +53,7 @@
 
     </fieldset>
   </form>
-
+    </div>
+  </div>
 </div>
+ 
