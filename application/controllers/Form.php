@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Form extends MY_Controller 
 {
+	private $admin_data;
 
 	public function __construct()
     {
@@ -66,7 +67,11 @@ class Form extends MY_Controller
 				$this->data['family_name'] = '';
 				$this->data['comp_add'] = '';
 
+
+				//$this->load->view($this->set_views->ajax());
+
 				$this->render($this->set_views->form_family());
+
 			}
 
 
@@ -221,6 +226,59 @@ class Form extends MY_Controller
     {
     	$this->session->unset_userdata('family');
     	redirect('/Form');
+    }
+
+    public function search_family()
+    {
+    	
+    	if ( $this->input->get('search_value') ) 
+        {
+        	$data = array(
+        		'search_value'	=> $this->input->get('search_value'),
+        		'table'			=> 'family AS F',
+        		'type'			=> 'family' 
+        	);
+
+        	$this->$data['output'] = $this->Model_return->search($data);
+
+        	//$this->load->view($this->set_views->search_family(), $data);
+        	$this->render($this->set_views->search_family());
+        }
+        else
+        {
+        	$this->$data = array(
+        		'output' => '' 
+        	);
+        	//$this->load->view($this->set_views->search_family(), $data);
+        	$this->render($this->set_views->search_family());
+        }
+
+        //footer
+		//$this->load->view($this->set_views->admin_footer());
+    }
+
+    public function add_family_member($data = '')
+    {
+    	if ($data) 
+    	{
+    		# code...
+    		$checker = $this->Model_return->return_family($data);
+
+    		if ($checker != FALSE) 
+    		{
+    			# code...
+    			$this->session->set_userdata('family' ,$data);
+    			redirect('/Form');
+    		}
+    		else
+    		{
+    			redirect('/search_family');
+    		}
+    	}
+    	else
+    	{
+    		redirect('/Form');
+    	}
     }
 
 }//end class
