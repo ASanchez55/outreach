@@ -11,6 +11,7 @@
         <a class="navbar-brand" href="<?php echo base_url(); ?>">Outreach</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
+        <?php if ($this->session->has_userdata('logged_in')) : ?>
         <ul class="nav navbar-nav">
           <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Family <span class="caret"></span></a>
@@ -34,10 +35,9 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <?php if ($this->session->has_userdata('logged_in')) : ?>
-              <li><a href="<?php echo site_url('admin/logout'); ?>">Sign-out</a></li>
-          <?php endif; ?>
+            <li><a href="<?php echo site_url('admin/logout'); ?>">Sign-out</a></li>
         </ul>
+        <?php endif; ?>
       </div>
       <!--/.nav-collapse -->
     </div>
