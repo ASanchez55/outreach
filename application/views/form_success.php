@@ -12,6 +12,13 @@
         </div>
       </div>
 
+      <!-- Output-->
+      <div class="form-group">
+        <div class="col-md-4">
+         <?php echo $output;?>
+        </div>
+      </div>
+
       <!-- Link-->
       <div class="form-group">
         <div class="col-md-4">

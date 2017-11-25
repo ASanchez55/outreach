@@ -9,9 +9,10 @@ class Form extends CI_Controller
 	    parent::__construct();
 	    // Your own constructor code
 	    $this->load->model('Model_insert');
+	    $this->load->model('Model_return');
 	    $this->load->library('form_validation');
 	    $this->load->library('set_views');
-	    $this->load->model('Model_others');
+	    //$this->load->model('Model_others');
 
 	    //check if user is logged on
 	    $this->load->library('set_custom_session');
@@ -25,32 +26,17 @@ class Form extends CI_Controller
     public function index()
     {
     	$config = array(
-                    array(
-                            'field' => 'family_name',
-                            'label' => 'Family Name',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                    array(
-                            'field' => 'Address_Province',
-                            'label' => 'Province',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                        array(
-                            'field' => 'Address_City',
-                            'label' => 'City/Municipality',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                         array(
-                            'field' => 'Address_Barangay',
-                            'label' => 'Barangay',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                         array(
-                            'field' => 'comp_add',
-                            'label' => 'Complete Address(House Number, Building, and Street Name)',
-                            'rules' => 'required|xss_clean'
-                    )
-            ); 
+                array(
+                    'field' => 'family_name',
+                    'label' => 'Family Name',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'comp_add',
+                    'label' => 'Address',
+                    'rules' => 'required|xss_clean'
+                )
+        ); 
 		$this->form_validation->set_rules($config);
 
 		if ( $this->form_validation->run() == TRUE )
@@ -58,9 +44,6 @@ class Form extends CI_Controller
 
 			$array_insert = array(
 				'name' 			=> $this->input->post('family_name'),
-				'provCode'		=> $this->input->post('Address_Province'),
-				'citymunCode'	=> $this->input->post('Address_City'),
-				'brgyCode'		=> $this->input->post('Address_Barangay'),
 				'comp_address'	=> $this->input->post('comp_add'), 
 			);
 
@@ -86,7 +69,7 @@ class Form extends CI_Controller
 				$data['family_name'] = '';
 				$data['comp_add'] = '';
 
-				$data['province_list'] = $this->Model_others->address_province('');
+				//$data['province_list'] = $this->Model_others->address_province('');
 				$this->load->view($this->set_views->form_family(), $data);
 				//footer
 				$this->load->view($this->set_views->admin_footer());
@@ -102,27 +85,27 @@ class Form extends CI_Controller
     public function participant_form()
     {
     	$config = array(
-                    array(
-                            'field' => 'fname',
-                            'label' => 'First Name',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                    array(
-                            'field' => 'gender',
-                            'label' => 'Gender',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                    array(
-                            'field' => 'birth_date',
-                            'label' => 'Birth Date',
-                            'rules' => 'trim|required|xss_clean'
-                    ),
-                    array(
-                            'field' => 'date_registered',
-                            'label' => 'Date Registered',
-                            'rules' => 'trim|required|xss_clean'
-                    )
-            ); 
+				array(
+                    'field' => 'fname',
+                    'label' => 'First Name',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'gender',
+                    'label' => 'Gender',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'birth_date',
+                    'label' => 'Birth Date',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'head_family',
+                    'label' => 'Head of Family',
+                    'rules' => 'trim|required|xss_clean'
+                )
+        ); 
 		$this->form_validation->set_rules($config);
 
 		if ( $this->form_validation->run() == TRUE )
@@ -134,7 +117,7 @@ class Form extends CI_Controller
 				'family_name_id'	=> $family_id,
 				'gender'			=> $this->input->post('gender'),
 				'birth_date'		=> $this->input->post('birth_date'),
-				'date_registered'	=> $this->input->post('date_registered')
+				'head_family'		=> $this->input->post('head_family')
 
 			);
 
@@ -143,11 +126,12 @@ class Form extends CI_Controller
 
 			//set session for form success
 			$array_message = array(
-				'msg'			=> 'Add family member success',
-				'msg2'			=> 'Add another family member',
-				're_link'		=> '/Form/participant_form',
-				'msg3' 			=> 'Create new Family',
-				're_link2'		=> '/Form/unset_family'
+				'msg'		=> 'Add family member success',
+				'msg2'		=> 'Add another family member',
+				're_link'	=> '/Form/participant_form',
+				'msg3' 		=> 'Create new Family',
+				're_link2'	=> '/Form/unset_family',
+				'type'		=> 'participants'	
 			);
 			$this->session->set_userdata('success_message' ,$array_message);
 
@@ -177,13 +161,30 @@ class Form extends CI_Controller
 				$js = 'class="form-control"';
 				$data['gender'] =  form_dropdown('gender', $options, '',$js);
 
+				//radio button for head of family
+				$options = array(
+				        'name'          => 'head_family',
+				        'value'         => 1,
+				        'checked'       => FALSE
+				);
+
+				$data['head_family1'] = form_radio($options);
+
+				$options = array(
+				        'name'          => 'head_family',
+				        'value'         => 0,
+				        'checked'       => TRUE
+				);
+
+				$data['head_family2'] = form_radio($options);
+
 				//to escape error in form validation set_value
 				$data['fname'] = '';
 				$data['birth_date'] = '';
-				$data['date_registered'] = '';
+				
 
 				//show family name
-				$data['family_name'] = $this->Model_insert->return_family($this->session->userdata('family'));
+				$data['family_name'] = $this->Model_return->return_family($this->session->userdata('family'));
 				//header
 				$this->load->view($this->set_views->admin_header());
 
@@ -209,6 +210,7 @@ class Form extends CI_Controller
     	{
     		# code...
     		$this->load->view($this->set_views->admin_header());
+
     		$data = array(
     			'msg'		=> $this->session->userdata('success_message')['msg'],
     			'msg2'		=> $this->session->userdata('success_message')['msg2'],
@@ -216,6 +218,12 @@ class Form extends CI_Controller
     			'msg3'		=> $this->session->userdata('success_message')['msg3'],
     			're_link2'	=> $this->session->userdata('success_message')['re_link2']  
     		);
+
+    		if ($this->session->userdata('success_message')['type'] == 'participants') 
+    		{
+    			# code...
+    			$data['output'] = $this->Model_return->return_participants($this->session->userdata('family'));
+    		}
     		$this->load->view($this->set_views->form_success(), $data);
 
     		//footer

@@ -45,11 +45,21 @@
         </div>
       </div>
 
-      <!-- Registration Date -->
+      <!-- Radio Button -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="_submitButton">Registration Date</label>
+        <label class="col-md-4 control-label" for="gender">Head of the Family</label>
         <div class="col-md-4">
-          <input type="date" name="date_registered" value="<?php echo set_value('date_registered', $date_registered ); ?>">
+          <div class="radio-inline">
+              <label for="head-0">
+                <?php echo $head_family1; ?> Yes
+              </label>
+            </div>
+            <div class="radio-inline">
+              <label for="head-1">
+                <?php echo $head_family2; ?> No
+              </label>
+            </div>
+          
         </div>
       </div>
 

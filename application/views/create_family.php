@@ -21,31 +21,6 @@
         </div>
       </div>
 
-      <!-- Dropdown-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="familyName">Province</label>
-        <div class="col-md-4">
-          <?php echo $province_list; ?>
-          
-        </div>
-      </div>
-
-      <!-- Dropdown-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="familyName">City/Municipality</label>
-        <div class="col-md-4">
-          <div id="Address_Province">City List</div>
-        </div>
-      </div>
-
-      <!-- Dropdown-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="familyName">Barangay</label>
-        <div class="col-md-4">
-         <div id="Address_City">Barangay List</div>
-        </div>
-      </div>
-
       <!-- Text input-->
       <div class="form-group">
         <label class="col-md-4 control-label" for="familyName">Address</label>
@@ -54,6 +29,15 @@
           <span class="help-block">House Number, Building, and Street Name</span>
         </div>
       </div>
+
+       <!-- Registration Date
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="_submitButton">Registration Date</label>
+        <div class="col-md-4">
+          <input type="date" name="date_registered" value="<?php echo set_value('date_registered', $date_registered ); ?>">
+        </div>
+      </div>
+      -->
 
       <!-- Button -->
       <div class="form-group">

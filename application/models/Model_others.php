@@ -8,6 +8,8 @@ class Model_others extends CI_Model
 	        parent::__construct();
 	        // Your own constructor code
 	}
+
+	/*
 	
 	function address_condition($type, $value)
 	{
@@ -102,7 +104,7 @@ class Model_others extends CI_Model
 
 	}//end function address province
 	
-	
+	*/
 
 
 }
