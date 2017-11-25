@@ -55,7 +55,7 @@ class Model_others extends CI_Model
 					$options[$row->$select_value_2] = $row->$select_value_1;
 				}
 				
-				$js = 'id="sel1" onChange="address(\''.$js_type.'\', this.value)"';
+				$js = 'class="form-control" id="sel1" onChange="address(\''.$js_type.'\', this.value)"';
 				return form_dropdown($type, $options, '', $js);
 			}
 			else

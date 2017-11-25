@@ -80,12 +80,17 @@ class Form extends CI_Controller
 			}//end session checker
 			else
 			{
+				//header
+				$this->load->view($this->set_views->admin_header());
 				//to escape error in form validation set_value
 				$data['family_name'] = '';
 				$data['comp_add'] = '';
 
 				$data['province_list'] = $this->Model_others->address_province('');
 				$this->load->view($this->set_views->form_family(), $data);
+				//footer
+				$this->load->view($this->set_views->admin_footer());
+
 				$this->load->view($this->set_views->ajax());
 			}
 
@@ -169,16 +174,20 @@ class Form extends CI_Controller
 					'Male'		=> 'Male',
 					'Female'	=> 'Female'
 				);
-				
-				$data['gender'] =  form_dropdown('gender', $options, '');
+				$js = 'class="form-control"';
+				$data['gender'] =  form_dropdown('gender', $options, '',$js);
 
 				//to escape error in form validation set_value
 				$data['fname'] = '';
 				$data['birth_date'] = '';
 				$data['date_registered'] = '';
-
+				//header
+				$this->load->view($this->set_views->admin_header());
 
 				$this->load->view($this->set_views->form_participant(), $data);
+
+				//footer
+				$this->load->view($this->set_views->admin_footer());
 				
 			}//end session checker
 			else
@@ -196,6 +205,7 @@ class Form extends CI_Controller
     	if ($this->session->has_userdata('success_message')) 
     	{
     		# code...
+    		$this->load->view($this->set_views->admin_header());
     		$data = array(
     			'msg'		=> $this->session->userdata('success_message')['msg'],
     			'msg2'		=> $this->session->userdata('success_message')['msg2'],
@@ -204,6 +214,9 @@ class Form extends CI_Controller
     			're_link2'	=> $this->session->userdata('success_message')['re_link2']  
     		);
     		$this->load->view($this->set_views->form_success(), $data);
+
+    		//footer
+			$this->load->view($this->set_views->admin_footer());
     	}
     	else
     	{

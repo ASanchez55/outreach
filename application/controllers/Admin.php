@@ -93,9 +93,9 @@ class Admin extends CI_Controller
                 //test
                 //$this->admin_data = $this->set_custom_session->admin_session();
                 
-                //$this->admin_header();
+                $this->admin_header();
                 //$this->load->view('admin/dashboard');
-                //$this->admin_footer();
+                $this->admin_footer();
 
                 redirect('/Form');
 
@@ -121,6 +121,13 @@ class Admin extends CI_Controller
     private function admin_footer()
     {
         $this->load->view($this->admin_footer);
+    }
+
+    public function logout()
+    {
+        $this->session->unset_userdata('logged_in');
+        $this->session->unset_userdata('family');
+        redirect('/admin');
     }
 
 }

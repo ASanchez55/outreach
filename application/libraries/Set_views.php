@@ -6,27 +6,27 @@ class Set_views
 
 	public function admin_header()
 	{
-		return '';
+		return 'header';
 	}
 
 	public function admin_footer()
 	{
-		return '';
+		return 'footer';
 	}
 
 	public function form_family()
 	{
-		return 'test/form_family';
+		return 'create_family';
 	}
 
 	public function form_participant()
 	{
-		return 'test/form_participant';
+		return 'add_family_member';
 	}
 
 	public function form_success()
 	{
-		return 'test/success';
+		return 'form_success';
 	}
 
 	public function ajax()
@@ -36,7 +36,7 @@ class Set_views
 
 	public function login()
 	{
-		return 'test/login';
+		return 'user_login';
 	}
 
 
