@@ -5,13 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Bootstrap 101 Template</title>
+  <title>Outreach</title>
 
   <!-- Bootstrap -->
-  <link href="<?php echo base_url(); ?>/vendor/twitter/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>vendor/twitter/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="site.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>views/site.css" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,7 +22,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
@@ -32,22 +32,33 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Charity</a>
+        <a class="navbar-brand" href="<?php echo base_url(); ?>">Outreach</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active">
-            <a href="#">Register</a>
+          <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Family <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Register Family</a></li>
+                  <li><a href="#">Add Family Member</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Search Family</a></li>
+                </ul>
           </li>
-          <li>
-            <a href="#about">Events</a>
+          <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Participate</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Create Event</a></li>
+                </ul>
           </li>
           <li>
             <a href="#contact">Reports</a>
           </li>
-          <li>
-            <a href="<?php echo site_url('admin/logout'); ?>">Sign out</a>
-          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+              <li><a href="<?php echo site_url('admin/logout'); ?>">Sign-out</a></li>
         </ul>
       </div>
       <!--/.nav-collapse -->
