@@ -19,5 +19,33 @@ class Model_insert extends CI_Model {
 			return $primary_no;
 		}
 
+		public function return_family($data)
+		{
+			$this->db->select('name');
+        	$this->db->from('family');
+        	$this->db->where('id', $data);
+
+        	$query = $this->db->get();
+
+	        if ($query->num_rows() == 1 ) 
+	        {
+	        	//reset query builder
+	            $this->db->reset_query();
+
+	            foreach ( $query->result() as $row )
+	            {
+	            	$output = $row->name;
+	            }
+
+	            return $output;
+
+	        }
+	        else
+	        {
+	        	return FALSE;
+	        }
+
+		}
+
 
 }

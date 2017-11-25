@@ -21,6 +21,14 @@
         </div>
       </div>
 
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="firstName">Last Name</label>
+        <div class="col-md-4">
+          <?php echo $family_name; ?>
+        </div>
+      </div>
+
       <!-- Dropdown -->
       <div class="form-group">
         <label class="col-md-4 control-label" for="gender">Gender</label>

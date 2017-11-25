@@ -8,7 +8,7 @@
       <!-- Error Box-->
       <div class="form-group">
         
-         <h3></h3><?php echo validation_errors(); ?></h3>
+         <h3><?php echo validation_errors(); ?></h3>
         
       </div>
 
@@ -34,7 +34,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="familyName">City/Municipality</label>
         <div class="col-md-4">
-          <div id="Address_Province"><b>City</b></div>
+          <div id="Address_Province">City List</div>
         </div>
       </div>
 
@@ -42,7 +42,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="familyName">Barangay</label>
         <div class="col-md-4">
-         <div id="Address_City"><b>Barangay</b></div>
+         <div id="Address_City">Barangay List</div>
         </div>
       </div>
 

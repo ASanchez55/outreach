@@ -181,6 +181,9 @@ class Form extends CI_Controller
 				$data['fname'] = '';
 				$data['birth_date'] = '';
 				$data['date_registered'] = '';
+
+				//show family name
+				$data['family_name'] = $this->Model_insert->return_family($this->session->userdata('family'));
 				//header
 				$this->load->view($this->set_views->admin_header());
 
