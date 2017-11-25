@@ -88,7 +88,8 @@ class Admin extends MY_Controller
                 //$this->admin_data = $this->set_custom_session->admin_session();
                 
                 //$this->load->view('admin/dashboard');
-                redirect('/Form');
+                $this->render($this->set_views->admin_home());
+                //redirect('/Form');
             }// user true
             else
             {
