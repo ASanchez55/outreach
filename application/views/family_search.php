@@ -20,7 +20,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Family Name</th>
-                    <th>First Name</th>
+                    <!--<th>First Name</th> -->
                     <th>Add Family Member</th>
                     <th>Register Family to Event</th>
                   </tr>

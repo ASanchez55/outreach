@@ -8,6 +8,11 @@ class Others extends CI_Controller
     {
 	    parent::__construct();
 	    // Your own constructor code
+
+	 
+	    //check if user is logged on
+	    $this->load->library('set_custom_session');
+	    $this->admin_data = $this->set_custom_session->admin_session();
 	   
     }
 

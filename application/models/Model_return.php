@@ -195,9 +195,12 @@ class Model_return extends CI_Model {
     		# code...
     		$add_family_link = 'Form/add_family_member/';
     		$register_family_event_link = 'Form/register_family_event/';
-    		$select_value = 'F.id, P.fname, F.name AS lname';
-    		$where_value = "P.head_family = 1 AND ( `F`.`id` LIKE '%$search_value%' ESCAPE '!' OR `F`.`name` LIKE '%$search_value%' ESCAPE '!')";
-            $this->db->join('participants AS P', 'F.id = P.family_name_id');
+    		$select_value = 'F.id, F.name AS lname';
+            $where_value = "`F`.`id` LIKE '%$search_value%' ESCAPE '!' OR `F`.`name` LIKE '%$search_value%' ESCAPE '!'";
+
+            //$select_value = 'F.id, P.fname, F.name AS lname';
+    		//$where_value = "P.head_family = 1 AND ( `F`.`id` LIKE '%$search_value%' ESCAPE '!' OR `F`.`name` LIKE '%$search_value%' ESCAPE '!')";
+            //$this->db->join('participants AS P', 'F.id = P.family_name_id');
     		/*
     		$array_like = array(
     			'F.id'  =>	$search_value,
@@ -245,7 +248,7 @@ class Model_return extends CI_Model {
     				$output .= $this->row_start;
     				$output .= $this->col_start.$row->id.$this->col_end;
     				$output .= $this->col_start.$row->lname.$this->col_end;
-    				$output .= $this->col_start.$row->fname.$this->col_end;
+    				//$output .= $this->col_start.$row->fname.$this->col_end;
                     $output .= $this->col_start.anchor($add_family_link.$row->id, 'Add').$this->col_end;
                     $output .= $this->col_start.anchor($register_family_event_link.$row->id, 'Register').$this->col_end;
     				$output .= $this->row_end;

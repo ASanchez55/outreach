@@ -15,13 +15,10 @@ class Form extends MY_Controller
 	    $this->load->library('set_views');
 	    //$this->load->model('Model_others');
 
+	    
 	    //check if user is logged on
 	    $this->load->library('set_custom_session');
-
-	    if ( $this->session->has_userdata('logged_in' ) )
-		{
-	    	$this->admin_data = $this->set_custom_session->admin_session();
-	    }
+	    $this->admin_data = $this->set_custom_session->admin_session();
     }
 
     public function index()
