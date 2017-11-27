@@ -32,9 +32,9 @@
         </div>
       </div>
 
-      <!-- Registration Date-->
+      <!-- Event Date-->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="_submitButton">Registration Date</label>
+        <label class="col-md-4 control-label" for="_submitButton">Event Date</label>
         <div class="col-md-4">
           <input type="date" name="date" value="<?php echo set_value('date', $date ); ?>">
         </div>

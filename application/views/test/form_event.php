@@ -21,7 +21,7 @@
         
         <form action="" method="post">
         <p>Event Name <input type="text" name="event_name" value="<?php echo set_value('event_name', $event_name ); ?>"  /> </p>
-        <p>Date Registered <input type="date" name="date" value="<?php echo set_value('date', $date ); ?>"  /> </p>
+        <p>Event Date <input type="date" name="date" value="<?php echo set_value('date', $date ); ?>"  /> </p>
         <p> <input type="submit"/> </p> 
         </form>
       
