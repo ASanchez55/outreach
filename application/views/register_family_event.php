@@ -35,7 +35,8 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="_submitButton">Registration Date</label>
         <div class="col-md-4">
-          <input type="date" name="date_registered" value="<?php echo set_value('date_registered', $date_registered ); ?>">
+          <button type="button" class="btn btn-primary" onclick="document.getElementById('datePicker').valueAsDate = new Date();">Date Today</button>
+          <input id="datePicker" type="date" name="date_registered" value="<?php echo set_value('date_registered', $date_registered ); ?>">
         </div>
       </div>
 
