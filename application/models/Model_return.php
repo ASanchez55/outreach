@@ -21,8 +21,8 @@ class Model_return extends CI_Model {
         $this->table_end = '</table>';
         $this->row_start = '<tr>';
         $this->row_end = '</tr>';
-        $this->col_start = '<th>';
-        $this->col_end = '</th>';
+        $this->col_start = '<td>';
+        $this->col_end = '</td>';
         $this->thead_start = '<thead>';
         $this->thead_end = '</thead>';
         $this->tbody_start = '<tbody>';
