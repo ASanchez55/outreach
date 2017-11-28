@@ -21,7 +21,8 @@ class ViewBag
     public function family_create()
     {
         return 'family/create';
-    }
+	}
+	
 
 
 	public function admin_header()
