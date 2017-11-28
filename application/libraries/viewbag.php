@@ -23,7 +23,10 @@ class ViewBag
         return 'family/create';
 	}
 	
-
+	public function family_search() 
+	{
+		return 'family/search';
+	}
 
 	public function admin_header()
 	{

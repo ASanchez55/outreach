@@ -26,4 +26,28 @@ class FamilyController extends MY_Controller
 
         $this->render($this->viewbag->family_create());
     }
+
+    public function search()
+    {
+        if ( $this->input->get('search_value') ) 
+        {
+        	$data = array_merge($this->data, array(
+        		'search_value'	=> $this->input->get('search_value'),
+        		'table'			=> 'family AS F',
+        		'type'			=> 'family' 
+        	));
+
+        	$this->data['output'] = $this->Model_return->search($data);
+        	$this->render($this->viewbag->family_search());
+        }
+        else
+        {
+
+        	$this->data = array_merge($this->data, array(
+        		'output' => '' 
+        	));
+
+        	$this->render($this->viewbag->family_search());
+        }
+    }
 }

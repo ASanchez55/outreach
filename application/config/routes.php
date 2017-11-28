@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 // Family Related Routes
 $route['family/create'] = 'FamilyController/create';
+$route['family/search'] = 'FamilyController/search';
