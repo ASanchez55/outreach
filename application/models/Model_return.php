@@ -193,7 +193,7 @@ class Model_return extends CI_Model {
     	if ( $data['type'] == 'family') 
     	{
     		# code...
-    		$add_family_link = 'Form/add_family_member/';
+    		$add_family_link = 'family/addFamilyMember/';
     		$register_family_event_link = 'Form/register_family_event/';
     		$select_value = 'F.id, F.name AS lname';
             $where_value = "`F`.`id` LIKE '%$search_value%' ESCAPE '!' OR `F`.`name` LIKE '%$search_value%' ESCAPE '!'";

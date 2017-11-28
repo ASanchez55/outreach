@@ -8,7 +8,10 @@ class FamilyController extends MY_Controller
         parent::__construct();
 	    // Your own constructor code
 	    $this->load->model('Model_insert');
-	    $this->load->model('Model_return');
+        $this->load->model('Model_return');
+        
+        $this->load->model('Family');
+
 	    $this->load->library('form_validation');
 	    $this->load->library('viewbag');
 	    
@@ -48,6 +51,50 @@ class FamilyController extends MY_Controller
         	));
 
         	$this->render($this->viewbag->family_search());
+        }
+    }
+
+    public function addFamilyMember($familyId)
+    {
+        $familyName = $this->Family->getFamilyName($familyId);
+
+        if ($familyName)
+        {
+            $this->session->set_userdata('family' , $familyName);
+
+			$options = array(
+                'Male'		=> 'Male',
+                'Female'	=> 'Female'
+            );
+            $js = 'class="form-control"';
+            $this->data['gender'] =  form_dropdown('gender', $options, '',$js);
+
+            //radio button for head of family
+            $options = array(
+                    'name'          => 'head_family',
+                    'value'         => 1,
+                    'checked'       => FALSE
+            );
+
+            $this->data['head_family1'] = form_radio($options);
+
+            $options = array(
+                    'name'          => 'head_family',
+                    'value'         => 0,
+                    'checked'       => TRUE
+            );
+
+            $this->data['head_family2'] = form_radio($options);
+
+            $this->data['fname'] = '';
+            $this->data['birth_date'] = '';
+            $this->data['family_name'] = $familyName;
+
+            $this->render($this->viewbag->family_addFamilyMember());
+        }
+        else
+        {
+            redirect('/family/search');
         }
     }
 }
