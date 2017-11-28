@@ -26,8 +26,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Participate</a></li>
-                  <li role="separator" class="divider"></li>
                   <li><a href="<?php echo site_url('form/form_event') ?>">Create Event</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Search Events</a></li>
                 </ul>
           </li>
           <li>
