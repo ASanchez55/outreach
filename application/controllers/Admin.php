@@ -8,7 +8,10 @@ class Admin extends MY_Controller
 	    parent::__construct();
 	    // Your own constructor code
         $this->load->model('Model_user_verification');
-	    $this->load->model('Model_insert');
+        $this->load->model('Model_insert');
+        
+        $this->load->model('admins_model');
+
 	    $this->load->library('form_validation');
         $this->load->library('set_custom_session');
         $this->load->library('set_views');
@@ -53,22 +56,27 @@ class Admin extends MY_Controller
         }
         else
         {
-            $data = array(
-                'username' => $this->input->post('username'),
-                'password' => $this->input->post('password')
-            );
+            $username = $this->input->post('username');
+            $password = $this->input->post('password');
 
-            $result = $this->Model_user_verification->user_login($data);
+            $adminAccount = $this->admins_model->getAdmin($username, $password);
 
-            if ( $result == TRUE ) 
-            {
-                $this->render($this->set_views->admin_home());
-            }
-            else
+            if (!isset($adminAccount))
             {
                 $this->data['error_message'] = 'Invalid Username or Password';
-                $this->render($this->set_views->login());
+                $this->render('admin/login');
+                return;
             }
+
+            //session set session
+            $data = array(
+                'id'	=> $adminAccount['id'],
+                'lname'	=> $adminAccount['last_name'],
+                'fname'	=> $adminAccount['first_name']
+            );
+            $this->session->set_userdata('logged_in' ,$data);
+
+            $this->render($this->set_views->admin_home());
         } 
     }
 
