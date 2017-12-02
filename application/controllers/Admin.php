@@ -7,9 +7,6 @@ class Admin extends MY_Controller
     {
 	    parent::__construct();
 	    // Your own constructor code
-        $this->load->model('Model_user_verification');
-        $this->load->model('Model_insert');
-        
         $this->load->model('admins_model');
 
 	    $this->load->library('form_validation');
