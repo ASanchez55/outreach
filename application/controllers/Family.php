@@ -113,44 +113,7 @@ class Family extends MY_Controller
         }
         else
         {
-            $this->data['family_name'] = $this->families_model->getFamilyNameById($familyId);
-            $this->data['family_id'] = $familyId;
-    
-            // TODO: simplify this
-    
-            //form dropdown for gender
-            $options = array(
-                'Male'		=> 'Male',
-                'Female'	=> 'Female'
-            );
-            $js = 'class="form-control"';
-            $this->data['gender'] =  form_dropdown('gender', $options, '',$js);
-    
-            //radio button for head of family
-            $options = array(
-                    'name'          => 'head_family',
-                    'value'         => 1,
-                    'checked'       => FALSE
-            );
-    
-            $this->data['head_family1'] = form_radio($options);
-    
-            $options = array(
-                    'name'          => 'head_family',
-                    'value'         => 0,
-                    'checked'       => TRUE
-            );
-    
-            $this->data['head_family2'] = form_radio($options);    
-    
-            $family_fields = array(
-                'fname'				=> $this->input->post('fname'),
-                'family_name_id'	=> $familyId,
-                'birth_date'		=> $this->input->post('birth_date'),
-            );
-    
-            $this->data = array_merge($this->data, $family_fields);
-    
+            $this->buildAddFamilyMemberForm($familyId);
             $this->render('family/add_family_member');
         }
     }
@@ -160,6 +123,38 @@ class Family extends MY_Controller
         // Save only on POST
         if ($this->input->method() === 'post')
         {
+            $config = array(
+                array(
+                    'field' => 'fname',
+                    'label' => 'First Name',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'gender',
+                    'label' => 'Gender',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'birth_date',
+                    'label' => 'Birth Date',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'head_family',
+                    'label' => 'Head of Family',
+                    'rules' => 'trim|required|xss_clean'
+                )
+            );
+            
+            $this->form_validation->set_rules($config);
+            
+            if ($this->form_validation->run() == false) 
+            {
+                $this->buildAddFamilyMemberForm($family_id);
+                $this->render('family/add_family_member');
+                return;
+            }
+
             $familyObject = '';
             $familyObject = array(
 				'fname'				=> $this->input->post('fname'),
@@ -172,12 +167,53 @@ class Family extends MY_Controller
             
             $this->familymembers_model->createFamilyMember($familyObject);
             
-            redirect('family');
+            redirect('family/view/'.$family_id);
         }
         else
         {
             redirect('family');
         }
+    }
+
+    private function buildAddFamilyMemberForm($familyId)
+    {
+        $this->data['family_name'] = $this->families_model->getFamilyNameById($familyId);
+        $this->data['family_id'] = $familyId;
+
+        // TODO: simplify this
+
+        //form dropdown for gender
+        $options = array(
+            'Male'		=> 'Male',
+            'Female'	=> 'Female'
+        );
+        $js = 'class="form-control"';
+        $this->data['gender'] =  form_dropdown('gender', $options, '',$js);
+
+        //radio button for head of family
+        $options = array(
+                'name'          => 'head_family',
+                'value'         => 1,
+                'checked'       => FALSE
+        );
+
+        $this->data['head_family1'] = form_radio($options);
+
+        $options = array(
+                'name'          => 'head_family',
+                'value'         => 0,
+                'checked'       => TRUE
+        );
+
+        $this->data['head_family2'] = form_radio($options);    
+
+        $family_fields = array(
+            'fname'				=> $this->input->post('fname'),
+            'family_name_id'	=> $familyId,
+            'birth_date'		=> $this->input->post('birth_date'),
+        );
+
+        $this->data = array_merge($this->data, $family_fields);
     }
 
     public function view($familyId)
