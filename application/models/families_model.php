@@ -1,6 +1,6 @@
 <?php
 
-class FamilyModel extends CI_Model 
+class Families_model extends CI_Model 
 {
     public function __construct()
     {
@@ -37,6 +37,33 @@ class FamilyModel extends CI_Model
 		return $id;
     }
 
+    public function getFamilyNameById($id)
+    {
+        $select = 'F.name AS lname';
+        $table = 'family AS F';
+
+        $this->db->select($select);
+        $this->db->from($table);
+        $this->db->like('id', $id);
+
+        $query = $this->db->get();
+        $name = '';
+        
+        if ($query->num_rows() != 0) 
+		{
+            $this->db->reset_query();
+            
+            foreach ( $query->result() as $row )
+			{
+                $name = $row->lname;
+                break;
+            }
+        }
+
+        return $name;
+    }
+
+    // TODO: Re-write this to return list of family data rather than HTML Table elements.
     public function findFamilyByName($name)
     {
         $select = 'F.id, F.name AS lname';
@@ -52,8 +79,8 @@ class FamilyModel extends CI_Model
         $output = '';
 
         // TODO: this should be done somewhere else
-        $add_family_link = 'family/addmember/';
-        $register_family_event_link = 'event/registerfamily/';
+        $add_family_link = 'family/addFamilyMember/';
+        $register_family_event_link = 'event/registerFamily/';
 
         if ($query->num_rows() != 0) 
 		{
@@ -79,6 +106,26 @@ class FamilyModel extends CI_Model
         }
     }
 
+    public function findFamilyByIdNew($id)
+    {
+        $select = 'F.id, F.name AS lname';
+        $table = 'family AS F';
+
+        $this->db->select($select);
+        $this->db->from($table);
+        $this->db->where('id', $id);
+
+        $this->db->limit( $this->page_limit );
+
+        $query = $this->db->get();
+        $output = '';
+
+        $this->db->reset_query();
+
+        return $query->result_array();
+    }
+    
+    // TODO: Re-write this to return list of family data rather than HTML Table elements.
     public function findFamilyById($id)
     {
     	$select = 'F.id, F.name AS lname';
@@ -100,7 +147,7 @@ class FamilyModel extends CI_Model
         if ($query->num_rows() != 0) 
 		{
             $this->db->reset_query();
-
+            
             // TODO: Allow UI to parse rather than build UI elements here
             foreach ( $query->result() as $row )
 			{
@@ -119,5 +166,23 @@ class FamilyModel extends CI_Model
             $output = '';
             return $output;
         }
+    }
+
+    // TODO: Db update should change this.
+    public function getAllFamilyMembers($familyId)
+    {
+        $select = 'P.id, P.fname as name, P.gender, P.birth_date as birthday, P.head_family as head_of_family';
+        $table = 'participants as P';
+
+        $this->db->select($select);
+        $this->db->from($table);
+        $this->db->where("P.family_name_id", $familyId);
+
+        $query = $this->db->get();
+
+        // Why reset?
+        $this->db->reset_query();
+
+        return $query->result_array();
     }
 }
