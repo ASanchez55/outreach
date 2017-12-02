@@ -52,8 +52,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Admin';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
-// Family Related Routes
-$route['family/create'] = 'FamilyController/create';
-$route['family/search'] = 'FamilyController/search';
-$route['family/addFamilyMember/(:any)'] = 'FamilyController/addFamilyMember/$1';

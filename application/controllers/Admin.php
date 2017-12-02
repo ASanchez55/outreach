@@ -42,25 +42,15 @@ class Admin extends MY_Controller
 
         if ( $this->form_validation->run() == FALSE ) 
         {
-            # code...
             if ($this->session->has_userdata('logged_in'))
             {
-                # code...
-            
-                //$this->load->view('view_admin_layo', $this->admin_data);
-                //$this->admin_layo();
-                //$this->load->view('admin/dashboard');
-
-                //$this->admin_footer();
-                //$this->load->view('view_admin_footer');
-
                 $this->render($this->set_views->admin_home());
-            }//end session user logged_in true
+            }
             else
             {
                 $this->render($this->set_views->login());
             }
-        }//form validation checker
+        }
         else
         {
             $data = array(
@@ -70,36 +60,16 @@ class Admin extends MY_Controller
 
             $result = $this->Model_user_verification->user_login($data);
 
-            //successful login
             if ( $result == TRUE ) 
             {
-                # code...
-                /*
-                $this->employee_no = $this->session->userdata('logged_in')['employee_no'];
-                $this->admin_fname = $this->session->userdata('logged_in')['first_name'];
-                $this->admin_lname = $this->session->userdata('logged_in')['last_name'];
-                $this->admin_data = array( 
-                    'employee_no' => $this->employee_no,
-                    'admin_fname' => $this->admin_fname,
-                    'admin_lname' => $this->admin_lname,
-                );
-                */
-                //test
-                //$this->admin_data = $this->set_custom_session->admin_session();
-                
-                //$this->load->view('admin/dashboard');
                 $this->render($this->set_views->admin_home());
-                //redirect('/Form');
-            }// user true
+            }
             else
             {
                 $this->data['error_message'] = 'Invalid Username or Password';
                 $this->render($this->set_views->login());
             }
-        }//end form validation false
-
-
-        
+        } 
     }
 
     public function logout()

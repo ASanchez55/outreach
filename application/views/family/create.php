@@ -1,5 +1,5 @@
 <div class="row center-block">
-  <form class="form-horizontal" method="post" action="">
+  <form class="form-horizontal" method="post" action="saveFamily">
     <fieldset>
       <!-- Form Name -->
       <div class="form-group">
@@ -40,23 +40,6 @@
           <span class="help-block"></span>
         </div>
       </div>
-
-      <!-- Registration Date-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="_submitButton">Registration Date</label>
-        <div class="col-md-4">
-          <input type="date" name="date_registered" value="<?php echo set_value('date_registered', $date_registered ); ?>">
-        </div>
-      </div>
-
-      <!-- Dropdown-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="familyName">Event</label>
-        <div class="col-md-4">
-          <?php echo $event_list; ?>
-        </div>
-      </div>
-      
 
       <!-- Button -->
       <div class="form-group">

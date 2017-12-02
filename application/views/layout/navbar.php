@@ -17,9 +17,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Family <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo site_url('family/create') ?>">Register Family</a></li>
-                  <li><a href="<?php echo site_url('form/participant_form') ?>">Add Family Member</a></li>
+                  <!-- <li><a href="<?php echo site_url('family/addFamilyMember') ?>">Add Family Member</a></li> -->
                   <li role="separator" class="divider"></li>
-                  <li><a href="<?php echo site_url('family/search') ?>">Search Family</a></li>
+                  <li><a href="<?php echo site_url('family') ?>">Search Family</a></li>
                 </ul>
           </li>
           <li class="dropdown">
