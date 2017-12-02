@@ -48,6 +48,29 @@ class Family extends MY_Controller
         // Save only on POST
         if ($this->input->method() === 'post')
         {
+            // Validation Stuff
+            $config = array(
+                array(
+                    'field' => 'family_name',
+                    'label' => 'Family Name',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'comp_add',
+                    'label' => 'Address',
+                    'rules' => 'required|xss_clean'
+                ),
+            ); 
+            $this->form_validation->set_rules($config);
+
+            if ($this->form_validation->run() == false) 
+            {
+                $this->data['family_name'] = '';
+                $this->data['comp_add'] = '';
+                $this->render('family/create');
+                return;
+            }
+
             $family_name = $this->input->post('family_name');
             $comp_add = $this->input->post('comp_add');
 
@@ -56,7 +79,7 @@ class Family extends MY_Controller
             $this->data['family_id'] = $familyIdGenerated;
             $this->data['family_name'] = $family_name;
 
-            $this->render('family/create_success');
+            redirect('family/view/'.$this->data['family_id']);
         }
         else 
         {

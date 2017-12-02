@@ -37,19 +37,6 @@
                         </td>
                         </tr>
                     <?php } ?>
-                    <!-- <tr>
-                        <td>1 </td>
-                        <td>Homer Simpson</td>
-                        <td>Male </td>
-                        <td>2017-12-27 </td>
-                        <td>Yes </td>
-                        <td>
-                            <button class="btn btn-info" type="button">View </button>
-                            <button class="btn btn-success" type="button">Edit </button>
-                            <button class="btn btn-danger" type="button">Delete </button>
-                        </td>
-                    </tr>
-                    <tr></tr> -->
                 </tbody>
             </table>
         </div>
