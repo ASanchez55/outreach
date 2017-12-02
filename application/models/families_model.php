@@ -63,57 +63,14 @@ class Families_model extends CI_Model
         return $name;
     }
 
-    // TODO: Re-write this to return list of family data rather than HTML Table elements.
     public function findFamilyByName($name)
     {
-        $select = 'F.id, F.name AS lname';
+        $select = 'F.id, F.name AS name';
         $table = 'family AS F';
 
         $this->db->select($select);
         $this->db->from($table);
         $this->db->like('name', $name);
-
-        $this->db->limit( $this->page_limit );
-
-        $query = $this->db->get();
-        $output = '';
-
-        // TODO: this should be done somewhere else
-        $add_family_link = 'family/addFamilyMember/';
-        $register_family_event_link = 'event/registerFamily/';
-
-        if ($query->num_rows() != 0) 
-		{
-            $this->db->reset_query();
-
-            // TODO: Allow UI to parse rather than build UI elements here
-            foreach ( $query->result() as $row )
-			{
-    			$output .= $this->row_start;
-    			$output .= $this->col_start.$row->id.$this->col_end;
-    			$output .= $this->col_start.$row->lname.$this->col_end;
-                $output .= $this->col_start.anchor($add_family_link.$row->id, 'Add').$this->col_end;
-                $output .= $this->col_start.anchor($register_family_event_link.$row->id, 'Register').$this->col_end;
-    			$output .= $this->row_end;
-            }
-            
-            return $output;
-        }
-        else
-        {
-            $output = '';
-            return $output;
-        }
-    }
-
-    public function findFamilyByIdNew($id)
-    {
-        $select = 'F.id, F.name AS lname';
-        $table = 'family AS F';
-
-        $this->db->select($select);
-        $this->db->from($table);
-        $this->db->where('id', $id);
 
         $this->db->limit( $this->page_limit );
 

@@ -23,17 +23,15 @@ class Family extends MY_Controller
 
     public function index()
     {
-        if ( $this->input->get('search_value') ) 
+        if ( $this->input->get('searchKeyword') ) 
         {
-            $name = $this->input->get('search_value');
-        	$this->data['output'] = $this->families_model->findFamilyByName($name);
+            $name = $this->input->get('searchKeyword');
+        	$this->data['families'] = $this->families_model->findFamilyByName($name);
         	$this->render('family/index');
         }
         else
         {
-        	$this->data = array_merge($this->data, array(
-        		'output' => '' 
-        	));
+        	$this->data['families'] = array();
         	$this->render('family/index');
         }
     }
