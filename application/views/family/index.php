@@ -8,7 +8,6 @@
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Search </button>
         </div>
-        <hr />
     </form>
     <div class="table-responsive">
         <table class="table">
@@ -26,7 +25,7 @@
                     <td><?php echo $family['name'] ?> </td>
                     <td>
                         <a class="btn btn-info" type="button" href="<?php echo "family/view/".$family['id'] ?>">View </a>
-                        <a class="btn btn-primary" type="button" href="<?php echo "family/addFamilyMember/".$family['id'] ?>">Add Family Member</a>
+                        <a class="btn btn-success" type="button" href="<?php echo "family/addFamilyMember/".$family['id'] ?>">Add Family Member</a>
                         <a class="btn btn-primary" type="button">Register Family to an Event</a>
                     </td>
                   </tr>
