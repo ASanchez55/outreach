@@ -11,6 +11,18 @@ class Events_model extends CI_Model
 
     public function create($eventsObject)
     {
+        $dataToInsert = array(
+            'name' => $eventsObject['name'],
+            'date' => $eventsObject['date'],
+            'max_participants' => $eventsObject['max_participants']
+        );
+
+        $this->db->insert('event', $dataToInsert); 
+
+        $id = $this->db->insert_id();
         
+        $this->db->reset_query();
+
+		return $id;
     }
 }

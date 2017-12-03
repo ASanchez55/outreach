@@ -7,7 +7,7 @@ class Event extends MY_Controller
     {
 	    parent::__construct();
 	    // Your own constructor code
-        $this->load->model('admins_model');
+        $this->load->model('events_model');
 
 	    $this->load->library('form_validation');
         $this->load->library('set_custom_session');
@@ -16,6 +16,59 @@ class Event extends MY_Controller
 
     public function create()
     {
+		$this->data['event_name'] = '';
+        $this->data['event_date'] = '';
+        $this->data['max_participants'] = '';
+        
         $this->render('event/create');
+    }
+
+    public function saveEvent()
+    {
+        if ($this->input->method() != 'post')
+        {
+            redirect('event/create');
+        }
+
+        $config = array(
+                array(
+                    'field' => 'event_name',
+                    'label' => 'Event Name',
+                    'rules' => 'trim|required|xss_clean'
+                ),
+                array(
+                    'field' => 'event_date',
+                    'label' => 'Event Date',
+                    'rules' => 'required|xss_clean'
+                ),
+                array(
+                    'field' => 'max_participants',
+                    'label' => 'Maximum Number of Participants',
+                    'rules' => 'numeric|required|xss_clean'
+                )
+        ); 
+		$this->form_validation->set_rules($config);
+
+		if ( $this->form_validation->run() == TRUE )
+		{
+            $eventObject = array(
+				'name' 	=> $this->input->post('event_name'),
+                'date'	=> $this->input->post('event_date'), 
+                'max_participants' => $this->input->post('max_participants')
+            );
+
+            $eventId = $this->events_model->create($eventObject);
+
+			$this->render('event/create_event_success');
+        }
+        else
+		{
+            // Re-populate with submitted items.
+			$this->data['event_name'] = $this->input->post('event_name');
+            $this->data['event_date'] = $this->input->post('event_date');
+            $this->data['max_participants'] = $this->input->post('max_participants');
+            
+			$this->render('event/create');
+		}
     }
 }

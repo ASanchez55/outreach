@@ -46,7 +46,7 @@ class Family extends MY_Controller
     public function saveFamily()
     {
         // Save only on POST
-        if ($this->input->method() === 'post')
+        if ($this->input->method() == 'post')
         {
             // Validation Stuff
             $config = array(
