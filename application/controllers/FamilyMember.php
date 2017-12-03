@@ -26,4 +26,14 @@ class FamilyMember extends MY_Controller
 
         $this->render($this->viewbag->family_create());
     }
+
+    public function edit()
+    {
+
+        
+        
+        $this->data['family_name'] = '';
+        $this->data['comp_add'] = '';
+        $this->data['date_registered'] = '';
+    }
 }

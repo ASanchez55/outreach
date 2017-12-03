@@ -157,8 +157,8 @@ class Family extends MY_Controller
 
             $familyObject = '';
             $familyObject = array(
-				'fname'				=> $this->input->post('fname'),
-				'family_name_id'	=> $family_id,
+				'full_name'			=> strtoupper($this->input->post('family_name').', '.$this->input->post('fname')),
+				'family_id'	        => $family_id,
 				'gender'			=> $this->input->post('gender'),
 				'birth_date'		=> $this->input->post('birth_date'),
 				'head_family'		=> $this->input->post('head_family')
@@ -182,6 +182,7 @@ class Family extends MY_Controller
 
         // TODO: simplify this
 
+        /*
         //form dropdown for gender
         $options = array(
             'Male'		=> 'Male',
@@ -206,7 +207,7 @@ class Family extends MY_Controller
         );
 
         $this->data['head_family2'] = form_radio($options);    
-
+        
         $family_fields = array(
             'fname'				=> $this->input->post('fname'),
             'family_name_id'	=> $familyId,
@@ -214,6 +215,8 @@ class Family extends MY_Controller
         );
 
         $this->data = array_merge($this->data, $family_fields);
+        */
+
     }
 
     public function view($familyId)

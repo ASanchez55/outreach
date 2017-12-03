@@ -29,7 +29,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="firstName">First Name</label>
         <div class="col-md-4">
-          <input id="firstName" name="fname" type="text" placeholder="ex. Juan" class="form-control input-md" value="<?php echo set_value('fname', $fname ); ?>">
+          <input id="firstName" name="fname" type="text" placeholder="ex. Juan" class="form-control input-md" value="<?php echo set_value('fname'); ?>">
         </div>
       </div>
 
@@ -37,7 +37,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="lastName">Last Name</label>
         <div class="col-md-4">
-          <?php echo $this->data['family_name']; ?>
+          <input type="text" class="form-control" name="family_name" readonly value="<?php echo $this->data['family_name']; ?>"/>
         </div>
       </div>
 
@@ -45,7 +45,14 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="gender">Gender</label>
         <div class="col-md-4">
-          <?php echo $gender; ?>
+          <?php 
+            $options = array(
+                'Male'    => 'Male',
+                'Female'  => 'Female'
+            );
+            $js = 'class="form-control"';
+            echo form_dropdown('gender', $options, '',$js);
+           ?>
         </div>
       </div>
 
@@ -53,7 +60,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="_submitButton">Birthday</label>
         <div class="col-md-4">
-          <input type="date" name="birth_date" value="<?php echo set_value('birth_date', $birth_date ); ?>">
+          <input type="date" name="birth_date" value="<?php echo set_value('birth_date'); ?>">
         </div>
       </div>
 
@@ -63,12 +70,28 @@
         <div class="col-md-4">
           <div class="radio-inline">
               <label for="head-0">
-                <?php echo $head_family1; ?> Yes
+                <?php 
+                  $options = array(
+                          'name'          => 'head_family',
+                          'value'         => 1,
+                          'checked'       => FALSE
+                  );
+
+                  echo form_radio($options);
+                ?> Yes
               </label>
             </div>
             <div class="radio-inline">
               <label for="head-1">
-                <?php echo $head_family2; ?> No
+                <?php 
+                  $options = array(
+                          'name'          => 'head_family',
+                          'value'         => 0,
+                          'checked'       => TRUE
+                  );
+
+                  echo form_radio($options);
+                ?> No
               </label>
             </div>
           
