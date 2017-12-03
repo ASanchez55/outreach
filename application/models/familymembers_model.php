@@ -26,4 +26,12 @@ class FamilyMembers_model extends CI_Model
 
 		return $id;
     }
+
+    public function getFamilyMemberDetails($familyMemberId)
+    {
+        $this->db->select($select);
+        $this->db->from($table);
+        $this->db->like('name', $name);
+    }
+
 }

@@ -9,7 +9,7 @@
             </div>
         </form>
         <a class="btn btn-success" type="button" href="<?php echo site_url("family/addFamilyMember/".$this->data['family_id']) ?>">Add Family Member</a>
-        <button class="btn btn-primary" type="button">Register family to an event</button>
+        <a class="btn btn-primary" type="button" href="<?php echo site_url("event/register/".$this->data['family_id']) ?>">Register family to an event</a>
         <hr />
         <div class="table-responsive">
             <table class="table">
