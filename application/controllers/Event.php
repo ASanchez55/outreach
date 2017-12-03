@@ -16,6 +16,6 @@ class Event extends MY_Controller
 
     public function create()
     {
-        
+        $this->render('event/create');
     }
 }

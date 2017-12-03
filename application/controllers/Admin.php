@@ -48,7 +48,7 @@ class Admin extends MY_Controller
             }
             else
             {
-                $this->render($this->set_views->login());
+                $this->render('admin/login');
             }
         }
         else
