@@ -1,6 +1,6 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
-    <h1>Search Family:</h1>
+    <h3>Search Family:</h3>
     <form>
         <div class="form-group">
             <input type="text" name="searchKeyword" placeholder="Last Name or Family Number" class="form-control" />

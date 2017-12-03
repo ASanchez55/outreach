@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <h1><?php echo $this->data['family_name']; ?></h1>
+        <h3><?php echo $this->data['family_name']; ?></h3>
         <form class="form-horizontal">
             <div class="form-group">
                 <div class="col-md-3">
-                    <h3>Family ID : <?php echo $this->data['family_id'] ?></h3>
+                    <h4>Family ID : <?php echo $this->data['family_id'] ?></h4>
                 </div>
             </div>
         </form>
