@@ -11,14 +11,14 @@ class FamilyMembers_model extends CI_Model
     public function createFamilyMember($familyObject)
     {
         $dataToInsert = array(
-            'fname'				=> $familyObject['fname'],
-            'family_name_id'	=> $familyObject['family_name_id'],
+            'full_name'				=> $familyObject['fname'],
+            'family_id'	=> $familyObject['family_name_id'],
             'gender'			=> $familyObject['gender'],
             'birth_date'		=> $familyObject['birth_date'],
             'head_family'		=> $familyObject['head_family']
         );
 
-        $this->db->insert('participants', $dataToInsert); 
+        $this->db->insert('family_members', $dataToInsert); 
 
         $id = $this->db->insert_id();
         

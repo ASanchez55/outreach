@@ -15,10 +15,10 @@ class Families_model extends CI_Model
     {
         $dataToInsert = array(
             'name' => $family_name,
-            'comp_address' => $comp_add
+            'address' => $comp_add
         );
 
-        $this->db->insert('family', $dataToInsert); 
+        $this->db->insert('families', $dataToInsert); 
 
         $id = $this->db->insert_id();
         
@@ -30,7 +30,7 @@ class Families_model extends CI_Model
     public function getFamilyNameById($id)
     {
         $select = 'F.name AS lname';
-        $table = 'family AS F';
+        $table = 'families AS F';
 
         $this->db->select($select);
         $this->db->from($table);
@@ -56,7 +56,7 @@ class Families_model extends CI_Model
     public function findFamilyByName($name)
     {
         $select = 'F.id, F.name AS name';
-        $table = 'family AS F';
+        $table = 'families AS F';
 
         $this->db->select($select);
         $this->db->from($table);
@@ -75,12 +75,12 @@ class Families_model extends CI_Model
     // TODO: Db update should change this.
     public function getAllFamilyMembers($familyId)
     {
-        $select = 'P.id, P.fname as name, P.gender, P.birth_date as birthday, P.head_family as head_of_family';
-        $table = 'participants as P';
+        $select = 'FM.id, FM.full_name as name, FM.gender, FM.birth_date as birthday, FM.head_family as head_of_family';
+        $table = 'family_members as FM';
 
         $this->db->select($select);
         $this->db->from($table);
-        $this->db->where("P.family_name_id", $familyId);
+        $this->db->where("FM.family_id", $familyId);
 
         $query = $this->db->get();
 
