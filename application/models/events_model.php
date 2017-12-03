@@ -17,7 +17,7 @@ class Events_model extends CI_Model
             'max_participants' => $eventsObject['max_participants']
         );
 
-        $this->db->insert('event', $dataToInsert); 
+        $this->db->insert('events', $dataToInsert); 
 
         $id = $this->db->insert_id();
         
@@ -29,7 +29,7 @@ class Events_model extends CI_Model
     public function getAllEvents()
     {
         $this->db->select('id, name');
-    	$this->db->from('event');
+    	$this->db->from('events');
         $this->db->order_by('id', 'DESC');
         
         $query = $this->db->get();

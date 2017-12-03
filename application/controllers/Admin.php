@@ -7,7 +7,7 @@ class Admin extends MY_Controller
     {
 	    parent::__construct();
 	    // Your own constructor code
-        $this->load->model('admins_model');
+        $this->load->model('users_model');
 
 	    $this->load->library('form_validation');
         $this->load->library('set_custom_session');
@@ -56,9 +56,9 @@ class Admin extends MY_Controller
             $username = $this->input->post('username');
             $password = $this->input->post('password');
 
-            $adminAccount = $this->admins_model->getAdmin($username, $password);
+            $userAccount = $this->users_model->getUser($username, $password);
 
-            if (!isset($adminAccount))
+            if (!isset($userAccount))
             {
                 $this->data['error_message'] = 'Invalid Username or Password';
                 $this->render('admin/login');
@@ -67,9 +67,9 @@ class Admin extends MY_Controller
 
             //session set session
             $data = array(
-                'id'	=> $adminAccount['id'],
-                'lname'	=> $adminAccount['last_name'],
-                'fname'	=> $adminAccount['first_name']
+                'id'	=> $userAccount['id'],
+                'lname'	=> $userAccount['last_name'],
+                'fname'	=> $userAccount['first_name']
             );
             $this->session->set_userdata('logged_in' ,$data);
 

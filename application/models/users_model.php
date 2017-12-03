@@ -1,6 +1,6 @@
 <?php
 
-class Admins_model extends CI_Model 
+class Users_model extends CI_Model 
 {
     public function __construct()
     {
@@ -9,10 +9,10 @@ class Admins_model extends CI_Model
         $this->page_limit = 50;
     }
 
-    public function getAdmin( $username, $password )
+    public function getUser( $username, $password )
     {
-        $this->db->select('id, fname AS first_name, lname AS last_name');
-        $this->db->from('admin');
+        $this->db->select('id, first_name AS first_name, last_name AS last_name');
+        $this->db->from('users');
         $this->db->where('username', $username);
         $this->db->where('password', $password);
         $this->db->where('valid', 1);

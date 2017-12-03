@@ -30,13 +30,14 @@ USE `outreach`;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-`id` int(11) NOT NULL,
+`id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(25) NOT NULL,
   `password` varchar(25) NOT NULL,
   `first_name` varchar(25) NOT NULL,
   `last_name` varchar(25) NOT NULL,
   `valid` tinyint(1) NOT NULL DEFAULT '1',
-  `is_admin` tinyint(1) NOT NULL DEFAULT '0'
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -47,11 +48,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 DROP TABLE IF EXISTS `events`;
 CREATE TABLE IF NOT EXISTS `events` (
-`id` int(11) NOT NULL,
+`id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
   `date` date NOT NULL,
   `max_participants` int(11) NOT NULL,
-  `event_date` date NOT NULL
+  `event_date` date NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -62,10 +64,11 @@ CREATE TABLE IF NOT EXISTS `events` (
 
 DROP TABLE IF EXISTS `events_families`;
 CREATE TABLE IF NOT EXISTS `events_families` (
-`id` int(11) NOT NULL,
+`id` int(11) NOT NULL AUTO_INCREMENT,
   `event_id` int(11) NOT NULL,
   `family_id` int(11) NOT NULL,
-  `date_registered` date DEFAULT NULL
+  `date_registered` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -76,12 +79,13 @@ CREATE TABLE IF NOT EXISTS `events_families` (
 
 DROP TABLE IF EXISTS `events_family_members`;
 CREATE TABLE IF NOT EXISTS `events_family_members` (
-`id` int(11) NOT NULL,
+`id` int(11) NOT NULL AUTO_INCREMENT,
   `event_id` int(11) NOT NULL,
   `family_id` int(11) NOT NULL,
   `family_member_id` int(11) NOT NULL,
   `date_attended` date DEFAULT NULL,
-  `attend` tinyint(1) DEFAULT NULL
+  `attend` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -92,10 +96,11 @@ CREATE TABLE IF NOT EXISTS `events_family_members` (
 
 DROP TABLE IF EXISTS `families`;
 CREATE TABLE IF NOT EXISTS `families` (
-`id` int(11) NOT NULL,
+`id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `address` text NOT NULL,
-  `registration_number` varchar(50) DEFAULT NULL
+  `registration_number` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -106,53 +111,14 @@ CREATE TABLE IF NOT EXISTS `families` (
 
 DROP TABLE IF EXISTS `family_members`;
 CREATE TABLE IF NOT EXISTS `family_members` (
-`id` int(11) NOT NULL,
+`id` int(11) NOT NULL AUTO_INCREMENT,
   `full_name` varchar(100) NOT NULL,
   `family_id` int(11) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `birth_date` date NOT NULL,
-  `head_family` tinyint(1) DEFAULT NULL
+  `head_family` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `events`
---
-ALTER TABLE `events`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `events_families`
---
-ALTER TABLE `events_families`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `events_family_members`
---
-ALTER TABLE `events_family_members`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `families`
---
-ALTER TABLE `families`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `family_members`
---
-ALTER TABLE `family_members`
- ADD PRIMARY KEY (`id`);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
