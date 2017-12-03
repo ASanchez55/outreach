@@ -56,3 +56,6 @@ $route['translate_uri_dashes'] = FALSE;
 // Family Controller
 $route['family/addFamilyMember/(:familyId)'] = 'Family/addFamilyMember/$1';
 $route['family/view/(:familyId)'] = 'Family/view/$1';
+
+// Event Controller
+$route['event/register/(:familyId)'] = 'Event/registerFamily/$1';

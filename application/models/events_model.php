@@ -25,4 +25,17 @@ class Events_model extends CI_Model
 
 		return $id;
     }
+
+    public function getAllEvents()
+    {
+        $this->db->select('id, name');
+    	$this->db->from('event');
+        $this->db->order_by('id', 'DESC');
+        
+        $query = $this->db->get();
+
+        $this->db->reset_query();
+
+        return $query->result_array();
+    }
 }

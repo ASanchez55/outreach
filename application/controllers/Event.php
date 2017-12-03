@@ -8,6 +8,7 @@ class Event extends MY_Controller
 	    parent::__construct();
 	    // Your own constructor code
         $this->load->model('events_model');
+        $this->load->model('families_model');
 
 	    $this->load->library('form_validation');
         $this->load->library('set_custom_session');
@@ -70,5 +71,30 @@ class Event extends MY_Controller
             
 			$this->render('event/create');
 		}
+    }
+
+    public function register($familyId)
+    {
+        $familyName = $this->families_model->getFamilyNameById($familyId);
+
+        if ($familyName == '')
+        {
+            // Redirect to Family-index if we are given an invalid family.
+            redirect('family');
+        }
+
+        $events = $this->events_model->getAllEvents();
+
+        if ($events == '')
+        {
+            // Make sure create an event.
+            redirect('event/create');
+        }
+
+        $this->data['family_name'] = $familyName;
+        $this->data['family_id'] = $familyId;
+        $this->data['events'] = $events;
+
+        $this->render('event/register');
     }
 }
