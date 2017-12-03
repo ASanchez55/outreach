@@ -36,11 +36,11 @@ class Family extends MY_Controller
         }
     }
 
-    public function create()
+    public function add()
     {
         $this->data['family_name'] = '';
         $this->data['comp_add'] = '';
-        $this->render('family/create');
+        $this->render('family/add');
     }
 
     public function saveFamily()
@@ -67,7 +67,7 @@ class Family extends MY_Controller
             {
                 $this->data['family_name'] = '';
                 $this->data['comp_add'] = '';
-                $this->render('family/create');
+                $this->render('family/add');
                 return;
             }
 
@@ -83,7 +83,7 @@ class Family extends MY_Controller
         }
         else 
         {
-            redirect('family/create');
+            redirect('family/add');
         }
     }
 
