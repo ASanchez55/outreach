@@ -27,7 +27,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo site_url('event/create') ?>">Create Event</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#">Search Events</a></li>
+                  <li><a href="<?php echo site_url('event/find') ?>">Find Events</a></li>
                 </ul>
           </li>
           <li>

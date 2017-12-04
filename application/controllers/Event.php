@@ -24,6 +24,21 @@ class Event extends MY_Controller
         $this->render('event/create');
     }
 
+    public function find()
+    {
+        $events = $this->events_model->getAllEvents();
+        
+        if ($events == '')
+        {
+            // Make sure that we have an existing event first!
+            redirect('event/create');
+        }
+
+        $this->data['events'] = $events;
+        
+        $this->render('event/find');
+    }
+
     public function saveEvent()
     {
         if ($this->input->method() != 'post')
