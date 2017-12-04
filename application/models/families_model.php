@@ -71,7 +71,6 @@ class Families_model extends CI_Model
         return $query->result_array();
     }
 
-    // TODO: Db update should change this.
     public function getAllFamilyMembers($familyId)
     {
         $select = 'FM.id, FM.full_name as name, FM.gender, FM.birth_date as birthday, FM.head_family as head_of_family';

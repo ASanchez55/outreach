@@ -87,6 +87,42 @@ class Events_model extends CI_Model
         
         return $query->num_rows();
     }
+
+    public function getAllFamiliesRegisteredToEvent($familyName)
+    {
+        $this->db->select('*');
+        $this->db->from('families');
+        $this->db->join('events_families', 'events_families.family_id = families.id' );
+        $this->db->like('families.name', $familyName);
+
+        $query = $this->db->get();
+        
+        $this->db->reset_query();
+                
+        return $query->result_array();
+    }
+
+    public function isFamilyMemberAttendingEvent($eventId, $family_member_id)
+    {
+        $this->db->select('*');
+        $this->db->from('events_family_members');
+        $this->db->where('event_id', $eventId);
+        $this->db->where('family_member_id', $family_member_id);
+
+        $query = $this->db->get();
+        
+        $this->db->reset_query();
+
+        if ($query->num_rows() > 0)
+        {
+            if ($query[0]['attend'] == '1')
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
     public function getAllEvents()
     {

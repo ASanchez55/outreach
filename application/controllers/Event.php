@@ -9,6 +9,7 @@ class Event extends MY_Controller
 	    // Your own constructor code
         $this->load->model('events_model');
         $this->load->model('families_model');
+        $this->load->model('familymembers_model');
 
 	    $this->load->library('form_validation');
         $this->load->library('set_custom_session');
@@ -32,12 +33,40 @@ class Event extends MY_Controller
         }
 
         $event = $this->events_model->getEvent($eventId);
-
+        
         $this->data['event'] = $event[0];
         $this->data['number_of_families_registered'] 
             = $this->events_model->getNumberOfFamiliesRegistered($eventId);
 
-        $this->render('event/view');
+        if ($this->input->method() != 'post')
+        {
+            $this->data['families'] = array(); 
+            $this->render('event/view');
+            return;
+        }
+        else
+        {
+            $familyName = $this->input->post('family_name');
+
+            $this->data['families'] 
+                = $this->events_model->getAllFamiliesRegisteredToEvent($familyName);
+
+            // Use of & is to modify the foreach variable. Not recommended but it works.
+            foreach($this->data['families'] as &$family)
+            {
+                $family_members = $this->families_model->getAllFamilyMembers($family['id']);
+
+                // Use of & is to modify the foreach variable. Not recommended but it works.
+                foreach($family_members as &$family_member)
+                {
+                    $family_member['attending'] = $this->events_model->isFamilyMemberAttendingEvent($eventId, $family_member['id']);
+                }
+
+                $family['family_members'] = $family_members;
+            }
+
+            $this->render('event/view');
+        }
     }
 
     public function find()
@@ -178,7 +207,8 @@ class Event extends MY_Controller
             else
             {
                 $id = $this->events_model->registerFamily($eventId, $familyId);
-                redirect('event/registration_success');
+                $this->render('event/registration_success');
+                return;
             }
         }
     }
