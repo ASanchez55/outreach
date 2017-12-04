@@ -13,7 +13,7 @@ class Events_model extends CI_Model
     {
         $dataToInsert = array(
             'name' => $eventsObject['name'],
-            'date' => $eventsObject['date'],
+            'event_date' => $eventsObject['date'],
             'max_participants' => $eventsObject['max_participants']
         );
 
@@ -54,6 +54,38 @@ class Events_model extends CI_Model
         $this->db->reset_query();
 
         return $id;
+    }
+
+    public function isFamilyRegistered($eventId, $familyId)
+    {
+        $this->db->select('*');
+        $this->db->from('events_families');
+        $this->db->where('event_id', $eventId);
+        $this->db->where('family_id', $familyId);
+
+        $query = $this->db->get();
+
+        $this->db->reset_query();
+        
+        if ($query->num_rows() > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getNumberOfFamiliesRegistered($eventId)
+    {
+        $this->db->select('*');
+        $this->db->from('events_families');
+        $this->db->where('event_id', $eventId);
+
+        $query = $this->db->get();
+
+        $this->db->reset_query();
+        
+        return $query->num_rows();
     }
     
     public function getAllEvents()

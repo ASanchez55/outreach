@@ -32,9 +32,11 @@ class Event extends MY_Controller
         }
 
         $event = $this->events_model->getEvent($eventId);
-        
 
-        $this->data['event'] = $event;
+        $this->data['event'] = $event[0];
+        $this->data['number_of_families_registered'] 
+            = $this->events_model->getNumberOfFamiliesRegistered($eventId);
+
         $this->render('event/view');
     }
 
@@ -154,10 +156,30 @@ class Event extends MY_Controller
         $eventId = $this->input->post('event_id');
         $familyId = $this->input->post('family_id');
 
-        // TODO: Enforce max_participants in event!!!
+        $number_of_families_registered
+            = $this->events_model->getNumberOfFamiliesRegistered($eventId);
+        $event 
+            = $this->events_model->getEvent($eventId);
 
-        $id = $this->events_model->registerFamily($eventId, $familyId);
-
-        redirect('family/index');
+        // Is the Event full?
+        if ($number_of_families_registered >= $event[0]['max_participants'])
+        {
+            $this->render('event/event_full');
+            return;
+        }
+        else
+        {
+            // Is family already registered?
+            if ($this->events_model->isFamilyRegistered($eventId, $familyId))
+            {
+                $this->render('event/already_registered');
+                return;
+            }
+            else
+            {
+                $id = $this->events_model->registerFamily($eventId, $familyId);
+                redirect('event/registration_success');
+            }
+        }
     }
 }

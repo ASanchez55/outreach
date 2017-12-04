@@ -1,10 +1,10 @@
 <div class="col-md-11 col-md-offset-0">
     <div class="row">
         <div class="col-md-11 col-md-offset-1 col-sm-10 col-sm-offset-1">
-            <h3>[Event Name]</h3>
+            <h3><?php echo $this->data['event']['name'] ?></h3>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <div class="col-md-11"><span>Number of Attendees : <strong>[Number of Attendees]</strong></span></div>
+                    <div class="col-md-11"><span>Number of Registered Families : <strong><?php echo $this->data['number_of_families_registered'] ?> / <?php echo $this->data['event']['max_participants'] ?></strong></span></div>
                 </div>
             </form>
         </div>
