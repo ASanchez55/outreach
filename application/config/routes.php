@@ -59,3 +59,4 @@ $route['family/view/(:familyId)'] = 'Family/view/$1';
 
 // Event Controller
 $route['event/register/(:familyId)'] = 'Event/registerFamily/$1';
+$route['event/register/(:eventId)'] = 'Event/view/$1';

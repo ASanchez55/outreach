@@ -26,6 +26,36 @@ class Events_model extends CI_Model
 		return $id;
     }
 
+    public function getEvent($eventId)
+    {
+        $this->db->select('id, name, max_participants, event_date');
+        $this->db->from('events');
+        $this->db->where('id', $eventId);
+
+        $query = $this->db->get();
+
+        $this->db->reset_query();
+
+        return $query->result_array();
+    }
+
+    public function registerFamily($eventId, $familyId)
+    {
+        $dataToInsert = array(
+            'date_registered' => date('Y-m-d H:i:s'),
+            'event_id' => $eventId,
+            'family_id' => $familyId
+        );
+
+        $this->db->insert('events_families', $dataToInsert);
+
+        $id = $this->db->insert_id();
+        
+        $this->db->reset_query();
+
+        return $id;
+    }
+    
     public function getAllEvents()
     {
         $this->db->select('id, name');

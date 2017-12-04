@@ -24,6 +24,20 @@ class Event extends MY_Controller
         $this->render('event/create');
     }
 
+    public function view($eventId)
+    {
+        if ($eventId == '')
+        {
+            redirect('event/find');
+        }
+
+        $event = $this->events_model->getEvent($eventId);
+        
+
+        $this->data['event'] = $event;
+        $this->render('event/view');
+    }
+
     public function find()
     {
         $events = $this->events_model->getAllEvents();
@@ -37,6 +51,23 @@ class Event extends MY_Controller
         $this->data['events'] = $events;
         
         $this->render('event/find');
+    }
+
+    public function findSubmit()
+    {
+        if ($this->input->method() != 'post')
+        {
+            redirect('event/find');
+        }
+
+        $event_id_selected = $this->input->post('event_id_selected');
+
+        if ($event_id_selected == '')
+        {
+            redirect('event/find');
+        }
+
+        redirect('event/view/'.$event_id_selected);
     }
 
     public function saveEvent()
@@ -111,5 +142,22 @@ class Event extends MY_Controller
         $this->data['events'] = $events;
 
         $this->render('event/register');
+    }
+
+    public function registerFamily()
+    {
+        if ($this->input->method() != 'post')
+        {
+            redirect('event/register');
+        }
+
+        $eventId = $this->input->post('event_id');
+        $familyId = $this->input->post('family_id');
+
+        // TODO: Enforce max_participants in event!!!
+
+        $id = $this->events_model->registerFamily($eventId, $familyId);
+
+        redirect('family/index');
     }
 }
