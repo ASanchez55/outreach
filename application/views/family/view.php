@@ -8,8 +8,8 @@
                 </div>
             </div>
         </form>
-        <a class="btn btn-success" type="button" href="<?php echo site_url("family/addFamilyMember/".$this->data['family_id']) ?>">Add Family Member</a>
-        <a class="btn btn-primary" type="button" href="<?php echo site_url("event/register/".$this->data['family_id']) ?>">Register family to an event</a>
+        <a class="btn btn-success" type="button" href="<?php echo site_url("family/addFamilyMember/".$this->data['family_id']); ?>">Add Family Member</a>
+        <a class="btn btn-primary" type="button" href="<?php echo site_url("event/register/".$this->data['family_id']); ?>">Register family to an event</a>
         <hr />
         <div class="table-responsive">
             <table class="table">
@@ -32,8 +32,8 @@
                         <td><?php echo $familyMember['birthday'] ?></td>
                         <td><?php echo (boolval($familyMember['head_of_family']) ? 'Yes' : 'No') ?> </td>
                         <td>
-                            <button class="btn btn-info" type="button">Edit </button>
-                            <button class="btn btn-danger" type="button">Delete </button>
+                            <a class="btn btn-info" type="button" href="<?php echo site_url("familyMember/editFamilyMember/".$familyMember['id']); ?>">Edit</a>
+                            <a class="btn btn-danger" type="button" href="<?php echo site_url("familyMember/deleteFamilyMember/".$familyMember['id']); ?>">Delete</a>
                         </td>
                         </tr>
                     <?php } ?>

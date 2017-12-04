@@ -31,9 +31,36 @@ class FamilyMembers_model extends CI_Model
 
     public function getFamilyMemberDetails($familyMemberId)
     {
-        $this->db->select($select);
-        $this->db->from($table);
-        $this->db->like('name', $name);
+        $this->db->select('id, family_id, full_name, gender, birth_date, head_family');
+        $this->db->from('family_members');
+        $this->db->where('id', $familyMemberId);
+
+        $query = $this->db->get();
+
+        //reset query builder
+        $this->db->reset_query();
+
+        return $query->result_array();
+
+    }
+
+    public function updateFamilyMemberDetails($familyMemberObject, $familyMemberId)
+    {
+
+        $this->db->where('id', $familyMemberId);
+        $this->db->update('family_members', $familyMemberObject);
+
+        //reset query builder
+        $this->db->reset_query();
+    }
+
+    public function deleteFamilyMember($familyMemberId)
+    {
+        $this->db->where('id', $familyMemberId);
+        $this->db->delete('family_members');
+
+        //reset query builder
+        $this->db->reset_query();
     }
 
 }

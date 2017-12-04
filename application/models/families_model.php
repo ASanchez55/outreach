@@ -65,7 +65,6 @@ class Families_model extends CI_Model
         $this->db->limit( $this->page_limit );
 
         $query = $this->db->get();
-        $output = '';
 
         $this->db->reset_query();
 

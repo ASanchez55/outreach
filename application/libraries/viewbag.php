@@ -33,6 +33,16 @@ class ViewBag
 		return 'family/addFamilyMember';
 	}
 
+	public function family_member_edit()
+	{
+		return 'family_members/edit_family_member';
+	}
+
+	public function family_member_delete()
+	{
+		return 'family_members/delete_family_member_confirmation';
+	}
+
 	public function admin_header()
 	{
 		return 'layout/header';
