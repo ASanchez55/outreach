@@ -88,7 +88,7 @@ class Events_model extends CI_Model
         return $query->num_rows();
     }
 
-    public function getAllFamiliesRegisteredToEvent($familyName)
+    public function findFamiliesRegisteredToEvent($familyName)
     {
         $this->db->select('*');
         $this->db->from('families');

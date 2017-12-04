@@ -49,7 +49,7 @@ class Event extends MY_Controller
             $familyName = $this->input->post('family_name');
 
             $this->data['families'] 
-                = $this->events_model->getAllFamiliesRegisteredToEvent($familyName);
+                = $this->events_model->findFamiliesRegisteredToEvent($familyName);
 
             // Use of & is to modify the foreach variable. Not recommended but it works.
             foreach($this->data['families'] as &$family)
