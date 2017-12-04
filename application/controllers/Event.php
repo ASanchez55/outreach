@@ -161,8 +161,8 @@ class Event extends MY_Controller
         }
 
         $events = $this->events_model->getAllEvents();
-
-        if ($events == '')
+        
+        if (empty($events))
         {
             // Make sure create an event.
             redirect('event/create');
