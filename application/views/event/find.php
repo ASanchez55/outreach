@@ -3,7 +3,7 @@
         <div class="col-md-10 col-md-offset-1">
             <h3>Find Event</h3>
             <hr />
-            <form class="form-horizontal" method="post" action="findSubmit">
+            <form id="form1" class="form-horizontal" method="post" >
                 <div class="form-group">
                     <div class="col-md-2">
                         <label class="control-label">Event </label>
@@ -23,10 +23,21 @@
                         <label class="control-label"> </label>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-primary" type="submit">View </button>
+                        <button class="btn btn-primary" onclick="submitForm('findSubmit')" type="submit">View </button>
+                        <button class="btn btn-info" onclick="submitForm('editEvent')" type="submit">Edit </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    
+    function submitForm(action) 
+    {
+        var form = document.getElementById('form1');
+        form.action = action;
+        form.submit();
+    }
+</script>

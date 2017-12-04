@@ -136,4 +136,13 @@ class Events_model extends CI_Model
 
         return $query->result_array();
     }
+
+    public function updateEventDetails($eventObject, $eventId)
+    {
+        $this->db->where('id', $eventId);
+        $this->db->update('events', $eventObject);
+
+        //reset query builder
+        $this->db->reset_query();
+    }
 }

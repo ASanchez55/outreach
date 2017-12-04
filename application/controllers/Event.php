@@ -13,15 +13,17 @@ class Event extends MY_Controller
 
 	    $this->load->library('form_validation');
         $this->load->library('set_custom_session');
+        $this->load->library('viewbag');
         $this->load->library('set_views');
     }
 
     public function create()
     {
+        /*
 		$this->data['event_name'] = '';
         $this->data['event_date'] = '';
         $this->data['max_participants'] = '';
-        
+        */
         $this->render('event/create');
     }
 
@@ -141,11 +143,13 @@ class Event extends MY_Controller
         }
         else
 		{
+            //form helper set value will handle the re-population set_value($field[, $default = ''[, $html_escape = TRUE]])
             // Re-populate with submitted items.
+            /*
 			$this->data['event_name'] = $this->input->post('event_name');
             $this->data['event_date'] = $this->input->post('event_date');
             $this->data['max_participants'] = $this->input->post('max_participants');
-            
+            */
 			$this->render('event/create');
 		}
     }
@@ -212,4 +216,72 @@ class Event extends MY_Controller
             }
         }
     }
-}
+
+    public function editEvent()
+    {
+        if ($this->input->method() != 'post')
+        {
+            redirect('event/find');
+        }
+
+        $this->data['event_details'] = $this->events_model->getEvent($this->input->post('event_id_selected'));
+
+        //We have not found an event!
+        if ($this->data['event_details'] == '') 
+        {
+            # code...
+            redirect('event/find');
+        }
+
+        if ($this->input->method() === 'post')
+        {
+            $this->updateEvent();
+        }
+        else
+        {
+            $this->render($this->viewbag->edit_event());
+        }
+
+        
+    }
+
+    private function updateEvent()
+    {
+        $config = array(
+            array(
+                'field' => 'event_name',
+                'label' => 'Event Name',
+                'rules' => 'trim|required|xss_clean'
+            ),
+            array(
+                'field' => 'event_date',
+                'label' => 'Event Date',
+                'rules' => 'trim|required|xss_clean'
+            ),
+            array(
+                'field' => 'max_participants',
+                'label' => 'Max Participants',
+                'rules' => 'trim|required|xss_clean'
+            )
+        );
+        
+        $this->form_validation->set_rules($config);
+
+        if ($this->form_validation->run() == false) 
+        {
+            # code...
+            $this->render($this->viewbag->edit_event());
+            return;
+        }
+
+        $eventObject = array(
+            'name'               => $this->input->post('event_name'),
+            'event_date'         => $this->input->post('event_date'),
+            'max_participants'   => $this->input->post('max_participants')
+        );
+
+        $this->events_model->updateEventDetails($eventObject, $this->input->post('event_id'));
+
+        redirect('event/find');
+    }
+}// end class

@@ -43,6 +43,11 @@ class ViewBag
 		return 'family_members/delete_family_member_confirmation';
 	}
 
+	public function edit_event()
+	{
+		return 'event/edit_event';
+	}
+
 	public function admin_header()
 	{
 		return 'layout/header';
