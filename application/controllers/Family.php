@@ -26,7 +26,13 @@ class Family extends MY_Controller
         if ( $this->input->get('searchKeyword') ) 
         {
             $name = $this->input->get('searchKeyword');
-        	$this->data['families'] = $this->families_model->findFamilyByName($name);
+            $this->data['families'] = $this->families_model->findFamilyByName($name);
+            
+            foreach( $this->data['families'] as &$family) 
+            {
+                $family['family_members_count'] = $this->families_model->getFamilyMembersCount($family['id']);
+            }
+
         	$this->render('family/index');
         }
         else

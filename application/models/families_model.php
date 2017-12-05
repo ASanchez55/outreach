@@ -87,4 +87,21 @@ class Families_model extends CI_Model
 
         return $query->result_array();
     }
+
+    public function getFamilyMembersCount($familyId)
+    {
+        $select = '*';
+        $table = 'family_members as FM';
+
+        $this->db->select($select);
+        $this->db->from($table);
+        $this->db->where("FM.family_id", $familyId);
+
+        $query = $this->db->get();
+
+        // Why reset?
+        $this->db->reset_query();
+
+        return $query->num_rows();
+    }
 }

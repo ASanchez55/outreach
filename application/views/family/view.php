@@ -5,6 +5,7 @@
             <div class="form-group">
                 <div class="col-md-3">
                     <h4>Family ID : <?php echo $this->data['family_id'] ?></h4>
+                    <h4>Number of Family Members : <?php echo count($this->data['family_members']) ?></h4>
                 </div>
             </div>
         </form>
