@@ -7,6 +7,7 @@ class Events_model extends CI_Model
         parent::__construct();
         // Your own constructor code
         $this->page_limit = 50;
+        $this->load->helper('date');
     }
 
     public function create($eventsObject)
@@ -228,4 +229,6 @@ class Events_model extends CI_Model
         //reset query builder
         $this->db->reset_query();
     }
+
+
 }

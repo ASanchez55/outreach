@@ -305,11 +305,19 @@ class Event extends MY_Controller
         $eventId        = $this->input->get('event_id');
         $familyName     = $this->input->get('family_name');
 
+        $isEventDay = $this->events_model->getEvent($eventId);
+
+        if ($isEventDay[0]['event_date'] != mdate('%Y-%m-%d', time())) 
+        {
+            # code...
+            redirect('event/find');
+        }
+
         $familyMemberObject = array(
             'event_id'          => $eventId,
             'family_id'         => $familyId,
             'family_member_id'  => $familyMemberId,
-            'date_attended'     => nice_date(time(), 'Y-m-d'),
+            'date_attended'     => mdate('%Y-%m-%d', time()),
             'attend'            => 1 
         );
 
