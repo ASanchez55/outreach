@@ -88,6 +88,20 @@ class Events_model extends CI_Model
         return $query->num_rows();
     }
 
+    public function getNumberOfAttendees($eventId)
+    {
+        $this->db->select('*');
+        $this->db->from('events_family_members');
+        $this->db->where('event_id', $eventId);
+        $this->db->where('attend', 1);
+
+        $query = $this->db->get();
+
+        $this->db->reset_query();
+        
+        return $query->num_rows();
+    }
+
     public function findFamiliesRegisteredToEvent($familyName)
     {
         $this->db->select('*');
@@ -115,14 +129,57 @@ class Events_model extends CI_Model
 
         if ($query->num_rows() > 0)
         {
+
+            /*
             if ($query[0]['attend'] == '1')
             {
                 return true;
+                //return $query[0]['id'];
+            }
+            */
+            foreach ( $query->result() as $row )
+            {
+                
+                if ($row->attend == 1) 
+                {
+                    # code...
+                    return TRUE;
+                }
+                
+                return FALSE;
             }
         }
 
-        return false;
+        return NULL;
     }
+
+    
+    public function getEventAttendee($eventId, $family_member_id)
+    {
+        $this->db->select('*');
+        $this->db->from('events_family_members');
+        $this->db->where('event_id', $eventId);
+        $this->db->where('family_member_id', $family_member_id);
+
+        $query = $this->db->get();
+
+        $this->db->reset_query();
+
+        if ($query->num_rows() > 0)
+        {
+            foreach ( $query->result() as $row )
+            {
+                
+                return $row->id;
+            }
+        }
+        else
+        {
+            return FALSE;
+        }
+
+    }
+    
     
     public function getAllEvents()
     {
@@ -141,6 +198,32 @@ class Events_model extends CI_Model
     {
         $this->db->where('id', $eventId);
         $this->db->update('events', $eventObject);
+
+        //reset query builder
+        $this->db->reset_query();
+    }
+
+    public function registerFamilyMemberAttendanceInsert($familyMemberObject)
+    {
+        $this->db->insert('events_family_members', $familyMemberObject);
+
+        $this->db->reset_query();
+    }
+
+    public function registerFamilyMemberAttendanceUpdate($eventFamilyMemberId, $familyMemberObject)
+    {
+        $this->db->where('id', $eventFamilyMemberId);
+        $this->db->update('events_family_members', $familyMemberObject);
+
+        //reset query builder
+        $this->db->reset_query();
+    }
+
+    public function removeFamilyMemberAttendance($eventFamilyMemberId)
+    {
+        $this->db->set('attend', 0);
+        $this->db->where('id', $eventFamilyMemberId);
+        $this->db->update('events_family_members');
 
         //reset query builder
         $this->db->reset_query();

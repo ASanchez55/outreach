@@ -15,6 +15,8 @@ class Event extends MY_Controller
         $this->load->library('set_custom_session');
         $this->load->library('viewbag');
         $this->load->library('set_views');
+
+        $this->load->helper('date');
     }
 
     public function create()
@@ -40,7 +42,9 @@ class Event extends MY_Controller
         $this->data['number_of_families_registered'] 
             = $this->events_model->getNumberOfFamiliesRegistered($eventId);
 
-        if ($this->input->method() != 'post')
+        $this->data['numberOfAttendees'] = $this->events_model->getNumberOfAttendees($eventId);
+
+        if ($this->input->method() != 'get')
         {
             $this->data['families'] = array(); 
             $this->render('event/view');
@@ -48,15 +52,17 @@ class Event extends MY_Controller
         }
         else
         {
-            $familyName = $this->input->post('family_name');
+            $this->data['familyName'] = $this->input->get('family_name');
 
             $this->data['families'] 
-                = $this->events_model->findFamiliesRegisteredToEvent($familyName);
+                = $this->events_model->findFamiliesRegisteredToEvent($this->data['familyName']);
 
             // Use of & is to modify the foreach variable. Not recommended but it works.
+
+            
             foreach($this->data['families'] as &$family)
             {
-                $family_members = $this->families_model->getAllFamilyMembers($family['id']);
+                $family_members = $this->families_model->getAllFamilyMembers($family['family_id']);
 
                 // Use of & is to modify the foreach variable. Not recommended but it works.
                 foreach($family_members as &$family_member)
@@ -66,6 +72,8 @@ class Event extends MY_Controller
 
                 $family['family_members'] = $family_members;
             }
+           
+
 
             $this->render('event/view');
         }
@@ -284,4 +292,104 @@ class Event extends MY_Controller
 
         redirect('event/find');
     }
+
+    public function registerFamilyMemberToEvent()
+    {
+        if ($this->input->method() != 'get')
+        {
+            redirect('event/find');
+        } 
+
+        $familyId       = $this->input->get('family_id');
+        $familyMemberId = $this->input->get('family_member_id');
+        $eventId        = $this->input->get('event_id');
+        $familyName     = $this->input->get('family_name');
+
+        $familyMemberObject = array(
+            'event_id'          => $eventId,
+            'family_id'         => $familyId,
+            'family_member_id'  => $familyMemberId,
+            'date_attended'     => nice_date(time(), 'Y-m-d'),
+            'attend'            => 1 
+        );
+
+        $memberDetails = $this->familymembers_model->getFamilyMemberDetails($familyMemberId);
+
+        //check data
+        if ($memberDetails != '') 
+        {
+            # code...
+            if ($familyId == $memberDetails[0]['family_id']) 
+            {
+                # code...
+
+                //check if family is registered to the event
+                $isRegistered = $this->events_model->isFamilyRegistered($eventId, $familyId);
+                if ($isRegistered == TRUE) 
+                {
+                    # code...
+                    //check if the data of family member is already stored
+                    $isAttending = $this->events_model->isFamilyMemberAttendingEvent($eventId, $familyMemberId);
+
+                    if ( is_null($isAttending) ) 
+                    {
+                        # code...
+                        //Insert
+                        $this->events_model->registerFamilyMemberAttendanceInsert($familyMemberObject);
+                       
+                    }
+                    else
+                    {
+                         //Update 
+                        $eventFamilyMemberId = $this->events_model->getEventAttendee($eventId, $familyMemberId);
+
+                        $this->events_model->registerFamilyMemberAttendanceUpdate($eventFamilyMemberId, $familyMemberObject);
+                    }
+
+                    redirect('event/view/'.$eventId.'?family_name='.$familyName);
+                }
+                else
+                {
+                    redirect('event/find');
+                }
+            }
+            else
+            {
+                redirect('');
+            }
+        }
+        else
+        {
+            redirect('event/find');
+        }
+
+    }
+
+    public function removeFamilyMemberToEvent()
+    {
+        if ($this->input->method() != 'get')
+        {
+            redirect('event/find');
+        } 
+
+        //$familyId       = $this->input->get('family_id');
+        $familyMemberId = $this->input->get('family_member_id');
+        $eventId        = $this->input->get('event_id');
+        $familyName     = $this->input->get('family_name');
+
+        $eventFamilyMemberId = $this->events_model->getEventAttendee($eventId, $familyMemberId);
+
+        if ($eventFamilyMemberId == 0) 
+        {
+            # code...
+            redirect('event/find');
+        }
+
+        $this->events_model->removeFamilyMemberAttendance($eventFamilyMemberId);
+
+        redirect('event/view/'.$eventId.'?family_name='.$familyName);
+
+
+
+    } 
 }// end class
