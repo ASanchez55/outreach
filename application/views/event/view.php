@@ -2,19 +2,18 @@
     <div class="row">
         <div class="col-md-11 col-md-offset-1 col-sm-10 col-sm-offset-1">
             <h3><?php echo $this->data['event']['name'] ?></h3>
-            
+            <form>
                 <div class="form-group">
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <span>Number of Registered Families : <strong><?php echo $this->data['number_of_families_registered'] ?> / <?php echo $this->data['event']['max_participants'] ?></strong></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <span>Number of Attendees : <strong><?php echo $this->data['numberOfAttendees']; ?></strong></span>
                     </div>
                 </div>
-                Number of Attendees
-            
+            </form>
         </div>
         <div class="col-md-11 col-md-offset-1 col-sm-10 col-sm-offset-1">
             <h3>Search Registered Families</h3>
