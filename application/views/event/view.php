@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-11 col-md-offset-1 col-sm-10 col-sm-offset-1">
             <h3>Search Registered Families</h3>
-            <form class="form-horizontal" method="get" action="" >
+            <form class="form-horizontal" method="post" action="" >
                 <div class="form-group">
                     <div class="col-md-12">
                         <input type="text" name="family_name" placeholder="ex. Dela Cruz" class="form-control" />
@@ -55,14 +55,14 @@
                                     <td><?php echo $familyMember['name'] ?> </td>
                                     <td>
                                         <?php if (($familyMember['attending'] == NULL) OR ($familyMember['attending'] == FALSE) ) { ?>
-                                        <a class="btn btn-success" type="button" href="<?php echo site_url("event/registerFamilyMemberToEvent?family_id=".$family['family_id']."&family_member_id=".$familyMember['id']."&event_id=".$this->data['event']['id']."&family_name=".$this->data['familyName']); ?>">Add Attendance</a>
+                                        <a class="btn btn-success" type="button" href="<?php echo site_url("event/registerFamilyMemberToEvent?family_id=".$family['family_id']."&family_member_id=".$familyMember['id']."&event_id=".$this->data['event']['id']."&family_name=".$family['name']); ?>">Add Attendance</a>
                                         <?php } else{ ?>
-                                        <a class="btn btn-danger" type="button" href="<?php echo site_url("event/removeFamilyMemberToEvent?family_member_id=".$familyMember['id']."&event_id=".$this->data['event']['id']."&family_name=".$this->data['familyName']); ?>">Remove Attendance</a>
+                                        <a class="btn btn-danger" type="button" href="<?php echo site_url("event/removeFamilyMemberToEvent?family_member_id=".$familyMember['id']."&event_id=".$this->data['event']['id']."&family_name=".$family['name']); ?>">Remove Attendance</a>
                                         <?php }  ?>
                                     </td>
                                 </tr>
                             <?php } ?>
-                        <?php } //var_dump($this->data['families']) ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
