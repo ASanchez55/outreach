@@ -104,4 +104,28 @@ class Families_model extends CI_Model
 
         return $query->num_rows();
     }
-}
+
+    public function getFamilyDetails($familyId)
+    {
+        $this->db->select('id, name, address');
+        $this->db->from('families');
+        $this->db->where('id', $familyId);
+
+        $query = $this->db->get();
+
+        $this->db->reset_query();
+
+        return $query->result_array();
+    }
+
+    public function updateFamilyDetails($familyObject, $familyId)
+    {
+
+        $this->db->where('id', $familyId);
+        $this->db->update('families', $familyObject);
+
+        //reset query builder
+        $this->db->reset_query();
+    }
+
+}//end class

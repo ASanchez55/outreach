@@ -402,4 +402,5 @@ class Event extends MY_Controller
 
 
     } 
+
 }// end class

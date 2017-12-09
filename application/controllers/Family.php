@@ -250,4 +250,64 @@ class Family extends MY_Controller
 
         $this->render('family/view');
     }
-}
+
+    public function editFamilyDetails($familyId)
+    {
+        if ($familyId == '')
+        {
+            redirect('family');
+        }
+
+        $this->data['family_details'] = $this->families_model->getFamilyDetails($familyId);
+
+        //We have not found a family!
+        if ($this->data['family_details'] == '') 
+        {
+            # code...
+            redirect('family');
+        }
+
+        if ($this->input->method() === 'post')
+        {
+            $this->updateFamily();
+        }
+        else
+        {
+            $this->render($this->viewbag->edit_family());
+        }
+    }
+
+    private function updateFamily()
+    {
+        $config = array(
+            array(
+                'field' => 'name',
+                'label' => 'Event Name',
+                'rules' => 'trim|required|xss_clean'
+            ),
+            array(
+                'field' => 'address',
+                'label' => 'Address',
+                'rules' => 'trim|required|xss_clean'
+            )
+        );
+        
+        $this->form_validation->set_rules($config);
+
+        if ($this->form_validation->run() == false) 
+        {
+            # code...
+            $this->render($this->viewbag->edit_family());
+            return;
+        }
+
+        $familyObject = array(
+            'name'            => $this->input->post('name'),
+            'address'         => $this->input->post('address')
+        );
+
+        $this->families_model->updateFamilyDetails($familyObject, $this->input->post('family_id'));
+
+        redirect('family/view/'.$this->input->post('family_id'));
+    }
+}//end class

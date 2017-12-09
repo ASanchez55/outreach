@@ -63,4 +63,17 @@ class FamilyMembers_model extends CI_Model
         $this->db->reset_query();
     }
 
+    public function getFamilyHeadAge($eventId, $familyMemberId)
+    {
+        $query = $this->db->query("
+            SELECT *
+            FROM family_members 
+            WHERE (  YEAR(CURDATE()) - (YEAR(birth_date) + 
+            IF (MONTH(CURDATE()) >= MONTH(birth_date), IF(DAY(CURDATE() >= DAY(birth_date)),1,0 ), 0)  ) )  < 12
+        "); 
+
+        return $query->result_array();
+        
+    }
+
 }

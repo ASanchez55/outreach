@@ -28,6 +28,11 @@ class ViewBag
 		return 'family/search';
 	}
 
+	public function edit_family()
+	{
+		return('family/edit_family');
+	}
+
 	public function family_addFamilyMember()
 	{
 		return 'family/addFamilyMember';
