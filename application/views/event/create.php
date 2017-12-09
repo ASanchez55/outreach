@@ -42,10 +42,10 @@
 
       <!-- Text input-->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="maxParticipants">Maximum Number of Participants</label>
-        <div class="col-md-1">
+        <label class="col-md-4 control-label" for="maxParticipants">Maximum Number of Families</label>
+        <div class="col-md-4">
           <input id="maxParticipants" name="max_participants" type="number" placeholder="ex. 100" class="form-control input-md" value="<?php echo set_value('max_participants'); ?>" >
-          <span class="help-block"></span>
+          <span class="help-block">Maximum number of Families that are allowed to register.</span>
         </div>
       </div>
 
