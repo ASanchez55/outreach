@@ -53,6 +53,11 @@ class ViewBag
 		return 'event/edit_event';
 	}
 
+	public function unregister_event()
+	{
+		return 'event/unregister_event';
+	}
+
 	public function admin_header()
 	{
 		return 'layout/header';

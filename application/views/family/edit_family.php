@@ -8,7 +8,7 @@
       <div class="form-group">
       <label class="col-md-3 control-label"></label>
       <div class="col-md-6">
-        <h3>Edit Family Member</h3>
+        <h3>Edit Family</h3>
         <hr />
       </div>
     </div>

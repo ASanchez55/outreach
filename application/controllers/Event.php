@@ -225,6 +225,56 @@ class Event extends MY_Controller
         }
     }
 
+    public function unregisterFamily($familyId)
+    {
+        if ($familyId == '') 
+        {
+            # code...
+            redirect('family');
+        }
+        $this->data['familyId'] = $familyId;
+
+        $this->data['events'] = $this->events_model->getEventListRegisteredToFamily($familyId);
+
+        //We have not found registered event
+        if ($this->data['events'] == '') 
+        {
+            # code...
+            redirect('family');
+        }
+
+        
+
+        $this->render($this->viewbag->unregister_event());
+    }
+
+    public function unregisterConfirmFamily()
+    {
+        if ($this->input->method() != 'post')
+        {
+            redirect('family');
+        }
+
+        $eventId = $this->input->post('event_id');
+        $familyId = $this->input->post('family_id');
+
+
+
+        $isRegistered = $this->events_model->isFamilyRegistered($eventId, $familyId);
+        
+        //We have not found a family!
+        if ($isRegistered == '') 
+        {
+            # code...
+            redirect('family');
+        }
+
+        $this->events_model->removeFamilyToEvent($eventId, $familyId);
+
+        
+        $this->render('event/unregister_success');
+    }
+
     public function editEvent()
     {
         if ($this->input->method() != 'post')
