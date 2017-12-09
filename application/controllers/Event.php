@@ -44,7 +44,7 @@ class Event extends MY_Controller
 
         $this->data['numberOfAttendees'] = $this->events_model->getNumberOfAttendees($eventId);
 
-        if ($this->input->method() != 'get')
+        if ($this->input->method() == 'GET')
         {
             $this->data['families'] = array(); 
             $this->render('event/view');
@@ -55,7 +55,7 @@ class Event extends MY_Controller
             $this->data['familyName'] = $this->input->get('family_name');
 
             $this->data['families'] 
-                = $this->events_model->findFamiliesRegisteredToEvent($this->data['familyName']);
+                = $this->events_model->findFamiliesRegisteredToEvent($eventId, $this->data['familyName']);
 
             // Use of & is to modify the foreach variable. Not recommended but it works.
 
