@@ -42,41 +42,47 @@ class Event extends MY_Controller
         $this->data['number_of_families_registered'] 
             = $this->events_model->getNumberOfFamiliesRegistered($eventId);
 
-        $this->data['numberOfAttendees'] = $this->events_model->getNumberOfAttendees($eventId);
+        $this->data['number_of_family_members_attending'] = $this->events_model->getNumberOfAttendees($eventId);
+        $this->data['number_of_families_attending'] = 0;
+        $this->data['familyName'] = '';
 
-        if ($this->input->method() != 'get')
+        if ($this->input->method() == 'get')
         {
-            $this->data['families'] = array(); 
-            $this->render('event/view');
-            return;
+            $this->data['familyName'] = $this->input->get('family_name');
         }
         else
         {
-            $this->data['familyName'] = $this->input->get('family_name');
+            $this->data['familyName'] = $this->input->post('family_name');
+        }
 
-            $this->data['families'] 
-                = $this->events_model->findFamiliesRegisteredToEvent($this->data['familyName']);
+        $this->data['families'] 
+            = $this->events_model->findFamiliesRegisteredToEvent($eventId, $this->data['familyName']);
+
+        // Use of & is to modify the foreach variable. Not recommended but it works.
+        foreach($this->data['families'] as &$family)
+        {
+            $family_members = $this->families_model->getAllFamilyMembers($family['family_id']);
 
             // Use of & is to modify the foreach variable. Not recommended but it works.
-
-            
-            foreach($this->data['families'] as &$family)
+            $isAFamilyMemberAttending = false;
+            foreach($family_members as &$family_member)
             {
-                $family_members = $this->families_model->getAllFamilyMembers($family['family_id']);
-
-                // Use of & is to modify the foreach variable. Not recommended but it works.
-                foreach($family_members as &$family_member)
+                $family_member['attending'] = $this->events_model->isFamilyMemberAttendingEvent($eventId, $family_member['id']);
+                if ($family_member['attending'] == TRUE)
                 {
-                    $family_member['attending'] = $this->events_model->isFamilyMemberAttendingEvent($eventId, $family_member['id']);
+                    $isAFamilyMemberAttending = TRUE;
                 }
-
-                $family['family_members'] = $family_members;
             }
-           
+            
+            if ($isAFamilyMemberAttending)
+            {
+                $this->data['number_of_families_attending'] += 1;
+            }
 
-
-            $this->render('event/view');
+            $family['family_members'] = $family_members;
         }
+
+        $this->render('event/view');
     }
 
     public function find()
@@ -446,11 +452,7 @@ class Event extends MY_Controller
         }
 
         $this->events_model->removeFamilyMemberAttendance($eventFamilyMemberId);
-
         redirect('event/view/'.$eventId.'?family_name='.$familyName);
-
-
-
     } 
 
 }// end class

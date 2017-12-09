@@ -5,19 +5,24 @@
             <form>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <span>Number of Registered Families : <strong><?php echo $this->data['number_of_families_registered'] ?> / <?php echo $this->data['event']['max_participants'] ?></strong></span>
+                        <span>Registered Families : <strong><?php echo $this->data['number_of_families_registered'] ?> / <?php echo $this->data['event']['max_participants'] ?></strong></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <span>Number of Attendees : <strong><?php echo $this->data['numberOfAttendees']; ?></strong></span>
+                        <span>Families Attending : <strong><?php echo $this->data['number_of_families_attending']; ?></strong></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <span>Family Members Attendees : <strong><?php echo $this->data['number_of_family_members_attending']; ?></strong></span>
                     </div>
                 </div>
             </form>
         </div>
         <div class="col-md-11 col-md-offset-1 col-sm-10 col-sm-offset-1">
             <h3>Search Registered Families</h3>
-            <form class="form-horizontal" method="get" action="" >
+            <form class="form-horizontal" method="post" action="" >
                 <div class="form-group">
                     <div class="col-md-12">
                         <input type="text" name="family_name" placeholder="ex. Dela Cruz" class="form-control" />
@@ -50,14 +55,14 @@
                                     <td><?php echo $familyMember['name'] ?> </td>
                                     <td>
                                         <?php if (($familyMember['attending'] == NULL) OR ($familyMember['attending'] == FALSE) ) { ?>
-                                        <a class="btn btn-success" type="button" href="<?php echo site_url("event/registerFamilyMemberToEvent?family_id=".$family['family_id']."&family_member_id=".$familyMember['id']."&event_id=".$this->data['event']['id']."&family_name=".$this->data['familyName']); ?>">Add Attendance</a>
+                                        <a class="btn btn-success" type="button" href="<?php echo site_url("event/registerFamilyMemberToEvent?family_id=".$family['family_id']."&family_member_id=".$familyMember['id']."&event_id=".$this->data['event']['id']."&family_name=".$family['name']); ?>">Add Attendance</a>
                                         <?php } else{ ?>
-                                        <a class="btn btn-danger" type="button" href="<?php echo site_url("event/removeFamilyMemberToEvent?family_member_id=".$familyMember['id']."&event_id=".$this->data['event']['id']."&family_name=".$this->data['familyName']); ?>">Remove Attendance</a>
+                                        <a class="btn btn-danger" type="button" href="<?php echo site_url("event/removeFamilyMemberToEvent?family_member_id=".$familyMember['id']."&event_id=".$this->data['event']['id']."&family_name=".$family['name']); ?>">Remove Attendance</a>
                                         <?php }  ?>
                                     </td>
                                 </tr>
                             <?php } ?>
-                        <?php } //var_dump($this->data['families']) ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

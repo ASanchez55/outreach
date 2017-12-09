@@ -128,12 +128,13 @@ class Events_model extends CI_Model
         return $query->num_rows();
     }
 
-    public function findFamiliesRegisteredToEvent($familyName)
+    public function findFamiliesRegisteredToEvent($eventId, $familyName)
     {
         $this->db->select('*');
         $this->db->from('families');
         $this->db->join('events_families', 'events_families.family_id = families.id' );
         $this->db->like('families.name', $familyName);
+        $this->db->where('events_families.event_id', $eventId);
 
         $query = $this->db->get();
         
