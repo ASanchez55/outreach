@@ -5,12 +5,17 @@
             <form>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <span>Number of Registered Families : <strong><?php echo $this->data['number_of_families_registered'] ?> / <?php echo $this->data['event']['max_participants'] ?></strong></span>
+                        <span>Registered Families : <strong><?php echo $this->data['number_of_families_registered'] ?> / <?php echo $this->data['event']['max_participants'] ?></strong></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <span>Number of Attendees : <strong><?php echo $this->data['numberOfAttendees']; ?></strong></span>
+                        <span>Families Attending : <strong><?php echo $this->data['number_of_families_attending']; ?></strong></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <span>Family Members Attendees : <strong><?php echo $this->data['number_of_family_members_attending']; ?></strong></span>
                     </div>
                 </div>
             </form>

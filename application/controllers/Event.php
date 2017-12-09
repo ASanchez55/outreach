@@ -42,7 +42,7 @@ class Event extends MY_Controller
         $this->data['number_of_families_registered'] 
             = $this->events_model->getNumberOfFamiliesRegistered($eventId);
 
-        $this->data['numberOfAttendees'] = $this->events_model->getNumberOfAttendees($eventId);
+        $this->data['number_of_family_members_attending'] = $this->events_model->getNumberOfAttendees($eventId);
 
         if ($this->input->method() == 'GET')
         {
@@ -57,17 +57,27 @@ class Event extends MY_Controller
             $this->data['families'] 
                 = $this->events_model->findFamiliesRegisteredToEvent($eventId, $this->data['familyName']);
 
-            // Use of & is to modify the foreach variable. Not recommended but it works.
+            $this->data['number_of_families_attending'] = 0;
 
-            
+            // Use of & is to modify the foreach variable. Not recommended but it works.
             foreach($this->data['families'] as &$family)
             {
                 $family_members = $this->families_model->getAllFamilyMembers($family['family_id']);
 
                 // Use of & is to modify the foreach variable. Not recommended but it works.
+                $isAFamilyMemberAttending = false;
                 foreach($family_members as &$family_member)
                 {
                     $family_member['attending'] = $this->events_model->isFamilyMemberAttendingEvent($eventId, $family_member['id']);
+                    if ($family_member['attending'] == true)
+                    {
+                        $isAFamilyMemberAttending = true;
+                    }
+                }
+                
+                if ($isAFamilyMemberAttending)
+                {
+                    $this->data['number_of_families_attending'] += 1;
                 }
 
                 $family['family_members'] = $family_members;
