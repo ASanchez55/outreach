@@ -28,6 +28,11 @@ class ViewBag
 		return 'family/search';
 	}
 
+	public function edit_family()
+	{
+		return('family/edit_family');
+	}
+
 	public function family_addFamilyMember()
 	{
 		return 'family/addFamilyMember';
@@ -46,6 +51,11 @@ class ViewBag
 	public function edit_event()
 	{
 		return 'event/edit_event';
+	}
+
+	public function unregister_event()
+	{
+		return 'event/unregister_event';
 	}
 
 	public function admin_header()

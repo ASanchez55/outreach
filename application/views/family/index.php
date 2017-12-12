@@ -29,6 +29,7 @@
                         <a class="btn btn-info" type="button" href="<?php echo "family/view/".$family['id'] ?>">View </a>
                         <a class="btn btn-success" type="button" href="<?php echo "family/addFamilyMember/".$family['id'] ?>">Add Family Member</a>
                         <a class="btn btn-primary" type="button" href="<?php echo "event/register/".$family['id'] ?>">Register Family to an Event</a>
+                        <a class="btn btn-danger" type="button" href="<?php echo "event/unregisterFamily/".$family['id'] ?>">Unegister Family to an Event</a>
                     </td>
                   </tr>
                 <?php } ?>
